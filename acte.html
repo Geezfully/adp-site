@@ -1,152 +1,224 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="ro" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#0a0a0b" />
+<title data-i18n="meta.acte">Statut și acte — Asociația de Drept Penal</title>
+<meta name="description" content="Statutul Asociației de Drept Penal din Republica Moldova, cuprinsul său, rapoartele de activitate și anunțurile Adunării Generale." />
+<meta name="theme-color" content="#11264a" />
+<meta property="og:title" content="Statut și acte — Asociația de Drept Penal" />
+<meta property="og:description" content="Statutul Asociației de Drept Penal din Republica Moldova, cuprinsul său, rapoartele de activitate și anunțurile Adunării Generale." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://adprm.md/assets/img/og.png" />
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/styles.css" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0b'/%3E%3Cpath d='M16 6v20M9 26h14M16 8l-7 3 7 3 7-3-7-3z' stroke='%23c8a951' stroke-width='1.6' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
-<title>Acte — Asociația de Drept Penal din Republica Moldova</title>
-<meta name="description" content="Documentele de constituire și activitate ale Asociației de Drept Penal din Republica Moldova — statut, regulamente și rapoarte." />
+<script>document.documentElement.className="js";</script>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
-
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <a class="brand" href="index.html" aria-label="ADP — acasă">
-      <img src="assets/img/adp-transparent.png" alt="ADP" class="brand__logo">
-    </a>
-    <nav class="nav__links" aria-label="Navigare principală">
-      <a href="acte.html" data-i18n="nav.docs">Acte</a>
-      <a href="conducere.html" data-i18n="nav.governance">Conducere</a>
+<a class="skip" href="#continut" data-i18n="ui.skip">Salt la conținut</a>
+<header class="site-header" id="header">
+  <div class="wrap site-header__bar">
+    <a class="brand" href="index.html" aria-label="Asociația de Drept Penal — pagina principală"><img src="assets/img/adp-logo-alb.png" alt="ADP" width="87" height="34" /></a>
+    <nav class="menu" id="menu" aria-label="Navigare principală">
+      <a href="acte.html" aria-current="page" data-i18n="nav.acte">Statut și acte</a>
+      <a href="conducere.html" data-i18n="nav.conducere">Conducere</a>
       <a href="aidp.html" data-i18n="nav.aidp">AIDP</a>
-      <a href="grup-national.html" data-i18n="nav.grupnational">Grup&nbsp;Național</a>
-      <a href="revista.html" data-i18n="nav.revista">Revistă</a>
+      <a href="grup-national.html" data-i18n="nav.gn">Grupul Național</a>
+      <a href="revista.html" data-i18n="nav.revista">Revista</a>
       <a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a>
-      <a href="membri.html" data-i18n="nav.members">Membri</a>
+      <a href="membri.html" data-i18n="nav.membri">Membri</a>
+      <a class="menu__cta" href="membri.html#aderare" data-i18n="nav.cta">Cerere de aderare</a>
     </nav>
-    <div class="nav__actions">
-      <button class="lang" id="langToggle" aria-label="Schimbă limba">
-        <span class="lang__opt is-active" data-lang="ro">RO</span><span class="lang__sep">/</span><span class="lang__opt" data-lang="en">EN</span>
-      </button>
-      <a class="btn btn--gold" href="#contact" data-i18n="nav.join">Devino membru</a>
-      <button class="burger" id="burger" aria-label="Meniu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="tools">
+      <button class="lang" id="lang" type="button" aria-label="Schimbă limba / Switch language"><span data-l="ro">RO</span> / <span data-l="en">EN</span></button>
+      <a class="btn btn-ghost" href="membri.html#aderare" data-i18n="nav.cta">Cerere de aderare</a>
+      <button class="burger" id="burger" type="button" aria-label="Meniu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
-
-<main id="top">
-
-<div class="page-top"></div>
-
-<section class="docs section" id="acte">
-  <div class="section__head reveal">
-    <span class="eyebrow" data-i18n="docs.eyebrow">Documente oficiale</span>
-    <h2 class="h2" data-i18n="docs.title">Acte de constituire și activitate</h2>
-    <p class="section__sub" data-i18n="docs.sub">Documentele care stau la baza constituirii și funcționării asociației — statut, regulamente și rapoarte de activitate.</p>
-  </div>
-  <div class="docs__grid">
-    <div class="doc-card reveal">
-      <svg viewBox="0 0 24 24" class="doc-card__ic" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      <div class="doc-card__body">
-        <b data-i18n="docs.d1t">Statutul ADP</b>
-        <span data-i18n="docs.d1s">Actul de constituire al asociației</span>
-      </div>
-      <span class="doc-badge">PDF</span>
+<main id="continut">
+<section class="page-head">
+  <img class="hero__mark" src="assets/img/adp-semn-alb.png" alt="" aria-hidden="true" width="574" height="481" />
+  <div class="wrap page-head__grid">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html" data-i18n="crumb.home">Acasă</a><span aria-hidden="true">/</span><span data-i18n="nav.acte">Statut și acte</span></nav>
+      <h1 class="display" data-i18n="acte.h1">Statut și acte</h1>
+      <p class="page-head__lead" data-i18n="acte.lead">Documentele care stau la baza funcționării Asociației și anunțurile pe care Statutul cere să fie publicate pe acest site.</p>
+      
     </div>
-    <div class="doc-card reveal">
-      <svg viewBox="0 0 24 24" class="doc-card__ic" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      <div class="doc-card__body">
-        <b data-i18n="docs.d2t">Regulamentul intern</b>
-        <span data-i18n="docs.d2s">Normele de organizare și funcționare</span>
-      </div>
-      <span class="doc-badge">PDF</span>
-    </div>
-    <div class="doc-card reveal">
-      <svg viewBox="0 0 24 24" class="doc-card__ic" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <div class="doc-card__body">
-        <b data-i18n="docs.d3t">Raport de activitate</b>
-        <span data-i18n="docs.d3s">Activitățile desfășurate de asociație</span>
-      </div>
-      <span class="doc-badge">PDF</span>
-    </div>
-  </div>
-</section>
-
-<section class="domains">
-  <div class="domains__track">
-    <span data-i18n="dom.1">Drept penal</span><i>·</i>
-    <span data-i18n="dom.2">Drept procesual penal</span><i>·</i>
-    <span data-i18n="dom.3">Drept execuțional penal</span><i>·</i>
-    <span data-i18n="dom.4">Drept contravențional</span><i>·</i>
-    <span data-i18n="dom.5">Criminalistică</span><i>·</i>
-    <span data-i18n="dom.6">Criminologie</span><i>·</i>
-    <span data-i18n="dom.1">Drept penal</span><i>·</i>
-    <span data-i18n="dom.2">Drept procesual penal</span><i>·</i>
-    <span data-i18n="dom.3">Drept execuțional penal</span><i>·</i>
-    <span data-i18n="dom.4">Drept contravențional</span><i>·</i>
-    <span data-i18n="dom.5">Criminalistică</span><i>·</i>
-    <span data-i18n="dom.6">Criminologie</span><i>·</i>
-  </div>
-</section>
-
-<section class="cta section" id="contact">
-  <div class="cta__bg" style="background-image:url('assets/img/symposium.webp')"></div>
-  <div class="cta__veil"></div>
-  <div class="cta__inner reveal">
-    <span class="eyebrow" data-i18n="cta.eyebrow">Alătură-te</span>
-    <h2 class="cta__title" data-i18n="cta.title">Construim împreună viitorul dreptului penal</h2>
-    <p data-i18n="cta.sub">Devino membru al comunității și contribuie la cercetare, educație și la consolidarea statului de drept în Republica Moldova.</p>
-    <form class="cta__form" id="joinForm" novalidate>
-      <div class="field">
-        <label for="name" data-i18n="form.name">Nume și prenume</label>
-        <input id="name" name="name" type="text" required autocomplete="name" />
-      </div>
-      <div class="field">
-        <label for="email" data-i18n="form.email">Email</label>
-        <input id="email" name="email" type="email" required autocomplete="email" />
-      </div>
-      <div class="field field--full">
-        <label for="msg" data-i18n="form.msg">Mesaj (opțional)</label>
-        <textarea id="msg" name="message" rows="3"></textarea>
-      </div>
-      <button class="btn btn--gold btn--lg" type="submit" data-i18n="form.submit">Trimite cererea</button>
-      <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
-    </form>
-  </div>
-</section>
-
-</main>
-
-</main>
-
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__brand">
-      <img src="assets/img/adp-transparent.png" alt="ADP" class="footer__logo">
-      <div>
-        <b>Asociația de Drept Penal</b>
-        <span data-i18n="footer.loc">Republica Moldova</span>
-      </div>
-    </div>
-    <nav class="footer__nav" aria-label="Footer">
-      <a href="acte.html" data-i18n="nav.docs">Acte</a>
-      <a href="conducere.html" data-i18n="nav.governance">Conducere</a>
-      <a href="aidp.html" data-i18n="nav.aidp">AIDP</a>
-      <a href="grup-national.html" data-i18n="nav.grupnational">Grup&nbsp;Național</a>
-      <a href="revista.html" data-i18n="nav.revista">Revistă</a>
-      <a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a>
-      <a href="membri.html" data-i18n="nav.members">Membri</a>
-      <a href="index.html#contact" data-i18n="nav.join">Devino membru</a>
+    <nav class="onpage" aria-label="Pe această pagină">
+      <p data-i18n="ui.onpage">Pe această pagină</p>
+        <a href="#statut"><span data-i18n="op.acte.1">Statutul</span><span>PDF</span></a>
+        <a href="#cuprins"><span data-i18n="op.acte.2">Cuprinsul Statutului</span><span>art. 1–26</span></a>
+        <a href="#rapoarte"><span data-i18n="op.acte.3">Rapoarte de activitate</span><span>art. 23</span></a>
+        <a href="#adunare"><span data-i18n="op.acte.4">Anunțuri ale Adunării Generale</span><span>art. 17</span></a>
     </nav>
   </div>
-  <div class="footer__bar">
-    <span data-i18n="footer.rights">© 2025 Asociația de Drept Penal din Republica Moldova. Toate drepturile rezervate.</span>
-    <span class="footer__type" data-i18n="footer.type">Asociație obștească · necomercială · apolitică</span>
+</section>
+
+<section class="sec" id="statut">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">§</span>
+      <span class="cite" data-i18n="acte.s.c">Statutul</span>
+      <span class="cite-name" data-i18n="acte.s.n">Redacție nouă, 2025</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <div class="statute">
+        <div class="stack">
+          <a href="assets/docs/statutul-adp-2025.pdf" aria-label="Statutul Asociației (PDF)">
+            <img class="stack__back" src="assets/img/statut-pagina3.webp" width="900" height="1183" alt="" loading="lazy" />
+            <img class="stack__front" src="assets/img/statut-coperta.webp" width="900" height="1197" alt="Coperta Statutului, cu ștampila Agenției Servicii Publice" loading="lazy" />
+          </a>
+        </div>
+        <div>
+          <h2 class="h2" data-i18n="acte.s.t">Statutul Asociației</h2>
+          <div class="prose" style="margin-top:16px"><p data-i18n="acte.s.p">Statutul stabilește scopurile Asociației, drepturile și obligațiile membrilor, organele de conducere, funcționarea Grupului Național afiliat AIDP, patrimoniul și regulile de transparență.</p></div>
+          <dl class="doc__meta">
+            <div><dt data-i18n="acte.m.reg.k">Înregistrat</dt><dd data-i18n="acte.m.reg.v">3 iunie 2025, Agenția Servicii Publice</dd></div>
+            <div><dt data-i18n="acte.m.sig.k">Semnat de</dt><dd data-i18n="acte.m.sig.v">Viorel V. Berliba, Președintele Asociației</dd></div>
+            <div><dt data-i18n="acte.m.len.k">Volum</dt><dd data-i18n="acte.m.len.v">13 pagini, 26 de articole</dd></div>
+            <div><dt data-i18n="acte.m.lang.k">Limba</dt><dd data-i18n="acte.m.lang.v">română</dd></div>
+            <div><dt data-i18n="acte.m.file.k">Fișier</dt><dd>PDF, 3,3 MB</dd></div>
+          </dl>
+          <div class="btns"><a class="btn btn-primary" href="assets/docs/statutul-adp-2025.pdf" download data-i18n="acte.s.btn">Descarcă Statutul (PDF)</a></div>
+        </div>
+      </div>
+      <div class="pages">
+        <p class="domains-label" data-i18n="strip.label">Din Statut — paginile documentului înregistrat</p>
+        <ol class="pages__row">
+          <li><a href="assets/docs/statutul-adp-2025.pdf"><img src="assets/img/statut-p02.webp" width="420" height="552" alt="" loading="lazy" /><span class="pages__p">p. 2</span><span class="pages__d" data-i18n="strip.2">Art. 1–5 · Dispoziții generale</span></a></li>
+          <li><a href="assets/docs/statutul-adp-2025.pdf"><img src="assets/img/statut-p03.webp" width="420" height="552" alt="" loading="lazy" /><span class="pages__p">p. 3</span><span class="pages__d" data-i18n="strip.3">Art. 5–8 · Scopurile Asociației</span></a></li>
+          <li><a href="assets/docs/statutul-adp-2025.pdf"><img src="assets/img/statut-p06.webp" width="420" height="552" alt="" loading="lazy" /><span class="pages__p">p. 6</span><span class="pages__d" data-i18n="strip.6">Art. 13–15 · Membrii</span></a></li>
+          <li><a href="assets/docs/statutul-adp-2025.pdf"><img src="assets/img/statut-p09.webp" width="420" height="552" alt="" loading="lazy" /><span class="pages__p">p. 9</span><span class="pages__d" data-i18n="strip.9">Art. 17–18 · Adunarea Generală, Președintele</span></a></li>
+          <li><a href="assets/docs/statutul-adp-2025.pdf"><img src="assets/img/statut-p12.webp" width="420" height="552" alt="" loading="lazy" /><span class="pages__p">p. 12</span><span class="pages__d" data-i18n="strip.12">Art. 23–26 · Transparență, modificare</span></a></li>
+          <li><a href="assets/docs/statutul-adp-2025.pdf"><img src="assets/img/statut-p13.webp" width="420" height="552" alt="" loading="lazy" /><span class="pages__p">p. 13</span><span class="pages__d" data-i18n="strip.13">Art. 26 · Semnătura și ștampila</span></a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="cuprins">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">1–26</span>
+      <span class="cite" data-i18n="acte.t.c">Art. 1–26</span>
+      <span class="cite-name" data-i18n="acte.t.n">Cuprins</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="acte.t.t">Cuprinsul Statutului</h2>
+      <p class="intro" data-i18n="acte.t.p">Capitolele Statutului, cu articolele corespunzătoare. Unde există, legătura duce la pagina site-ului care explică acea parte.</p>
+      <ol class="toc">
+        <li><span style="font:inherit;color:inherit;padding:0;white-space:normal" data-i18n="toc.1">Dispoziții generale</span><span>art. 1–4</span></li>
+        <li><a href="index.html#despre" data-i18n="toc.2">Principiile de activitate</a><span>art. 5–7</span></li>
+        <li><a href="index.html#activitate" data-i18n="toc.3">Scopurile Asociației</a><span>art. 8</span></li>
+        <li><span style="font:inherit;color:inherit;padding:0;white-space:normal" data-i18n="toc.4">Drepturile și obligațiile Asociației</span><span>art. 9–11</span></li>
+        <li><a href="membri.html" data-i18n="toc.5">Membrii. Drepturi și obligații</a><span>art. 12–15</span></li>
+        <li><a href="conducere.html" data-i18n="toc.6">Organele Asociației</a><span>art. 16–19</span></li>
+        <li><a href="grup-national.html" data-i18n="toc.7">Grupul Național afiliat AIDP</a><span>art. 20</span></li>
+        <li><span style="font:inherit;color:inherit;padding:0;white-space:normal" data-i18n="toc.8">Patrimoniul și sursele de finanțare</span><span>art. 21–22</span></li>
+        <li><a href="acte.html#rapoarte" data-i18n="toc.9">Transparența activității</a><span>art. 23</span></li>
+        <li><span style="font:inherit;color:inherit;padding:0;white-space:normal" data-i18n="toc.10">Adoptarea și modificarea Statutului</span><span>art. 24</span></li>
+        <li><span style="font:inherit;color:inherit;padding:0;white-space:normal" data-i18n="toc.11">Sucursalele Asociației</span><span>art. 25</span></li>
+        <li><span style="font:inherit;color:inherit;padding:0;white-space:normal" data-i18n="toc.12">Reorganizarea și lichidarea</span><span>art. 26</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="rapoarte">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">23</span>
+      <span class="cite" data-i18n="acte.r.c">Art. 23</span>
+      <span class="cite-name" data-i18n="acte.r.n">Transparență</span>
+      <p class="gloss"><q data-i18n="gl.art23">Activitatea Asociației are un caracter transparent.</q><span data-i18n="gl.art23.src">Statut, art. 23 alin. (1)</span></p>
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="acte.r.t">Rapoarte de activitate</h2>
+      <div class="split">
+        <div class="prose"><p data-i18n="acte.r.p">Asociația face public raportul anual de activitate în cel mult șase luni de la sfârșitul anului pentru care este întocmit. Raportul cuprinde activitățile desfășurate, valoarea mijloacelor financiare și a materialelor obținute și folosite, precum și alte informații relevante. Raportul este întocmit de Președinte și aprobat de Adunarea Generală (art. 18).</p></div>
+      <dl class="facts"><span class="label" data-i18n="acte.rf">Reguli</span>
+        <div><dt data-i18n="acte.rf1.k">Termen</dt><dd data-i18n="acte.rf1.v">6 luni de la sfârșitul anului</dd></div>
+        <div><dt data-i18n="acte.rf2.k">La cerere</dt><dd data-i18n="acte.rf2.v">copie transmisă în cel mult o lună</dd></div>
+        <div><dt data-i18n="acte.rf3.k">Aprobă</dt><dd data-i18n="acte.rf3.v">Adunarea Generală</dd></div>
+      </dl>
+      </div>
+      <div class="notice"><b data-i18n="acte.r.nb">Niciun raport publicat încă</b><p data-i18n="acte.r.np">Rapoartele aprobate vor fi publicate pe această pagină, în ordine cronologică.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="adunare">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">17</span>
+      <span class="cite" data-i18n="acte.a.c">Art. 17 alin. (3)</span>
+      <span class="cite-name" data-i18n="acte.a.n">Adunarea Generală</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="acte.a.t">Anunțuri ale Adunării Generale</h2>
+      <div class="prose"><p data-i18n="acte.a.p">Ordinea de zi a Adunării Generale, ordinare sau extraordinare, se comunică membrilor cu 15 zile înainte de ședință, prin publicare pe site-ul Asociației. Adunarea poate hotărî doar asupra chestiunilor incluse în ordinea de zi.</p></div>
+      <div class="notice"><b data-i18n="acte.a.nb">Nicio ședință convocată</b><p data-i18n="acte.a.np">Când va fi convocată o ședință, data, locul și ordinea de zi vor apărea aici.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <img class="hero__mark" src="assets/img/adp-semn-alb.png" alt="" aria-hidden="true" width="574" height="481" />
+  <div class="wrap band__grid">
+    <div>
+      <h2 class="h2" data-i18n="band.t">Alăturați-vă juriștilor care construiesc știința dreptului penal în Republica Moldova</h2>
+      <p data-i18n="band.p">Calitatea de membru este deschisă oricărei persoane licențiate în drept care lucrează cu dreptul penal — în cercetare sau în practică.</p>
+    </div>
+    <div class="btns">
+      <a class="btn btn-light" href="membri.html#aderare" data-i18n="band.btn">Depune cererea de aderare</a>
+      <a class="btn btn-ghost" href="assets/docs/statutul-adp-2025.pdf" data-i18n="band.btn2">Citește Statutul</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div>
+        <img src="assets/img/adp-logo-alb.png" alt="ADP" width="102" height="40" loading="lazy" />
+        <b data-i18n="foot.name">Asociația de Drept Penal din Republica Moldova</b>
+        <p data-i18n="foot.legal">Asociație obștească · IDNO 1017620005024 · mun. Chișinău</p>
+      </div>
+      <nav class="site-footer__nav" aria-label="Subsol">
+        <h2 data-i18n="foot.nav">Pagini</h2>
+        <ul>
+          <li><a href="acte.html" data-i18n="nav.acte">Statut și acte</a></li>
+          <li><a href="conducere.html" data-i18n="nav.conducere">Conducere</a></li>
+          <li><a href="aidp.html" data-i18n="nav.aidp">AIDP</a></li>
+          <li><a href="grup-national.html" data-i18n="nav.gn">Grupul Național</a></li>
+          <li><a href="revista.html" data-i18n="nav.revista">Revista</a></li>
+          <li><a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a></li>
+          <li><a href="membri.html" data-i18n="nav.membri">Membri</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 data-i18n="foot.docs">Documente</h2>
+        <ul>
+          <li><a href="assets/docs/statutul-adp-2025.pdf" data-i18n="foot.statut">Statutul Asociației (PDF)</a></li>
+          <li><a href="membri.html#aderare" data-i18n="foot.join">Cerere de aderare</a></li>
+          <li><a href="https://www.penal.org" rel="noopener" target="_blank">AIDP — penal.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bar">
+      <span>© 2017–<span id="year">2026</span> <span data-i18n="foot.rights">Asociația de Drept Penal din Republica Moldova</span></span>
+      <span data-i18n="foot.aidp">Grupul Național al Republicii Moldova la AIDP</span>
+    </div>
   </div>
 </footer>
 

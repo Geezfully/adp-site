@@ -1,156 +1,228 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="ro" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#0a0a0b" />
+<title data-i18n="meta.membri">Membri — Asociația de Drept Penal</title>
+<meta name="description" content="Cine poate deveni membru al Asociației de Drept Penal din Republica Moldova, drepturile și obligațiile membrilor și cererea de aderare." />
+<meta name="theme-color" content="#11264a" />
+<meta property="og:title" content="Membri — Asociația de Drept Penal" />
+<meta property="og:description" content="Cine poate deveni membru al Asociației de Drept Penal din Republica Moldova, drepturile și obligațiile membrilor și cererea de aderare." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://adprm.md/assets/img/og.png" />
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/styles.css" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0b'/%3E%3Cpath d='M16 6v20M9 26h14M16 8l-7 3 7 3 7-3-7-3z' stroke='%23c8a951' stroke-width='1.6' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
-<title>Membri — Asociația de Drept Penal din Republica Moldova</title>
-<meta name="description" content="Cine poate deveni membru al Asociației de Drept Penal din Republica Moldova și care sunt drepturile membrilor." />
+<script>document.documentElement.className="js";</script>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
-
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <a class="brand" href="index.html" aria-label="ADP — acasă">
-      <img src="assets/img/adp-transparent.png" alt="ADP" class="brand__logo">
-    </a>
-    <nav class="nav__links" aria-label="Navigare principală">
-      <a href="acte.html" data-i18n="nav.docs">Acte</a>
-      <a href="conducere.html" data-i18n="nav.governance">Conducere</a>
+<a class="skip" href="#continut" data-i18n="ui.skip">Salt la conținut</a>
+<header class="site-header" id="header">
+  <div class="wrap site-header__bar">
+    <a class="brand" href="index.html" aria-label="Asociația de Drept Penal — pagina principală"><img src="assets/img/adp-logo-alb.png" alt="ADP" width="87" height="34" /></a>
+    <nav class="menu" id="menu" aria-label="Navigare principală">
+      <a href="acte.html" data-i18n="nav.acte">Statut și acte</a>
+      <a href="conducere.html" data-i18n="nav.conducere">Conducere</a>
       <a href="aidp.html" data-i18n="nav.aidp">AIDP</a>
-      <a href="grup-national.html" data-i18n="nav.grupnational">Grup&nbsp;Național</a>
-      <a href="revista.html" data-i18n="nav.revista">Revistă</a>
+      <a href="grup-national.html" data-i18n="nav.gn">Grupul Național</a>
+      <a href="revista.html" data-i18n="nav.revista">Revista</a>
       <a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a>
-      <a href="membri.html" data-i18n="nav.members">Membri</a>
+      <a href="membri.html" aria-current="page" data-i18n="nav.membri">Membri</a>
+      <a class="menu__cta" href="membri.html#aderare" data-i18n="nav.cta">Cerere de aderare</a>
     </nav>
-    <div class="nav__actions">
-      <button class="lang" id="langToggle" aria-label="Schimbă limba">
-        <span class="lang__opt is-active" data-lang="ro">RO</span><span class="lang__sep">/</span><span class="lang__opt" data-lang="en">EN</span>
-      </button>
-      <a class="btn btn--gold" href="#contact" data-i18n="nav.join">Devino membru</a>
-      <button class="burger" id="burger" aria-label="Meniu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="tools">
+      <button class="lang" id="lang" type="button" aria-label="Schimbă limba / Switch language"><span data-l="ro">RO</span> / <span data-l="en">EN</span></button>
+      <a class="btn btn-ghost" href="membri.html#aderare" data-i18n="nav.cta">Cerere de aderare</a>
+      <button class="burger" id="burger" type="button" aria-label="Meniu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
-
-<main id="top">
-
-<div class="page-top"></div>
-
-<section class="members section" id="membri">
-  <div class="feature feature--reverse members__intro">
-    <div class="feature__media reveal">
-      <img id="img-members" src="assets/img/members.webp" alt="Juriști în discuție" loading="lazy" />
+<main id="continut">
+<section class="page-head">
+  <img class="hero__mark" src="assets/img/adp-semn-alb.png" alt="" aria-hidden="true" width="574" height="481" />
+  <div class="wrap page-head__grid">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html" data-i18n="crumb.home">Acasă</a><span aria-hidden="true">/</span><span data-i18n="nav.membri">Membri</span></nav>
+      <h1 class="display" data-i18n="mem.h1">Calitatea de membru</h1>
+      <p class="page-head__lead" data-i18n="mem.lead">Asociația este deschisă juriștilor care lucrează cu dreptul penal — în universitate, în instanță, în procuratură sau în avocatură.</p>
+      
     </div>
-    <div class="feature__text reveal">
-      <span class="eyebrow" data-i18n="members.eyebrow">Membri</span>
-      <h2 class="h2" data-i18n="members.title">Cine se poate alătura</h2>
-      <p data-i18n="members.p">Asociația reunește profesioniști și viitori juriști care împărtășesc aceleași valori. Calitatea de membru se dobândește benevol, în condițiile Statutului, și se exercită în spiritul egalității și al bunei-credințe.</p>
-    </div>
-  </div>
-  <div class="members__grid">
-    <div class="mcard reveal">
-      <h3 data-i18n="m1.t">Membri activi</h3>
-      <p data-i18n="m1.d">Persoane licențiate în drept, preocupate de dezvoltarea științei sau practicii dreptului penal, fără antecedente penale.</p>
-    </div>
-    <div class="mcard reveal">
-      <h3 data-i18n="m2.t">Membri de onoare</h3>
-      <p data-i18n="m2.d">Personalități marcante ale științei dreptului penal, recunoscute pe plan național și internațional.</p>
-    </div>
-    <div class="mcard reveal">
-      <h3 data-i18n="m3.t">Studenți și tineri juriști</h3>
-      <p data-i18n="m3.d">Participare la programe de cercetare, granturi, conferințe și la viața academică a asociației.</p>
-    </div>
-  </div>
-  <div class="benefits reveal">
-    <h4 data-i18n="benefits.title">Drepturile membrilor</h4>
-    <ul>
-      <li data-i18n="b1">Participarea la toate activitățile și proiectele asociației</li>
-      <li data-i18n="b2">Alegerea și eligibilitatea în organele de conducere</li>
-      <li data-i18n="b3">Publicarea fără taxă a articolelor în revistele de profil</li>
-      <li data-i18n="b4">Accesul la baza materială: documentare, bibliotecă, culegeri</li>
-      <li data-i18n="b5">Participarea la programe de cercetare și granturi</li>
-      <li data-i18n="b6">Recunoaștere pentru contribuția adusă asociației</li>
-    </ul>
-  </div>
-</section>
-
-<section class="domains">
-  <div class="domains__track">
-    <span data-i18n="dom.1">Drept penal</span><i>·</i>
-    <span data-i18n="dom.2">Drept procesual penal</span><i>·</i>
-    <span data-i18n="dom.3">Drept execuțional penal</span><i>·</i>
-    <span data-i18n="dom.4">Drept contravențional</span><i>·</i>
-    <span data-i18n="dom.5">Criminalistică</span><i>·</i>
-    <span data-i18n="dom.6">Criminologie</span><i>·</i>
-    <span data-i18n="dom.1">Drept penal</span><i>·</i>
-    <span data-i18n="dom.2">Drept procesual penal</span><i>·</i>
-    <span data-i18n="dom.3">Drept execuțional penal</span><i>·</i>
-    <span data-i18n="dom.4">Drept contravențional</span><i>·</i>
-    <span data-i18n="dom.5">Criminalistică</span><i>·</i>
-    <span data-i18n="dom.6">Criminologie</span><i>·</i>
-  </div>
-</section>
-
-<section class="cta section" id="contact">
-  <div class="cta__bg" style="background-image:url('assets/img/symposium.webp')"></div>
-  <div class="cta__veil"></div>
-  <div class="cta__inner reveal">
-    <span class="eyebrow" data-i18n="cta.eyebrow">Alătură-te</span>
-    <h2 class="cta__title" data-i18n="cta.title">Construim împreună viitorul dreptului penal</h2>
-    <p data-i18n="cta.sub">Devino membru al comunității și contribuie la cercetare, educație și la consolidarea statului de drept în Republica Moldova.</p>
-    <form class="cta__form" id="joinForm" novalidate>
-      <div class="field">
-        <label for="name" data-i18n="form.name">Nume și prenume</label>
-        <input id="name" name="name" type="text" required autocomplete="name" />
-      </div>
-      <div class="field">
-        <label for="email" data-i18n="form.email">Email</label>
-        <input id="email" name="email" type="email" required autocomplete="email" />
-      </div>
-      <div class="field field--full">
-        <label for="msg" data-i18n="form.msg">Mesaj (opțional)</label>
-        <textarea id="msg" name="message" rows="3"></textarea>
-      </div>
-      <button class="btn btn--gold btn--lg" type="submit" data-i18n="form.submit">Trimite cererea</button>
-      <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
-    </form>
-  </div>
-</section>
-
-</main>
-
-</main>
-
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__brand">
-      <img src="assets/img/adp-transparent.png" alt="ADP" class="footer__logo">
-      <div>
-        <b>Asociația de Drept Penal</b>
-        <span data-i18n="footer.loc">Republica Moldova</span>
-      </div>
-    </div>
-    <nav class="footer__nav" aria-label="Footer">
-      <a href="acte.html" data-i18n="nav.docs">Acte</a>
-      <a href="conducere.html" data-i18n="nav.governance">Conducere</a>
-      <a href="aidp.html" data-i18n="nav.aidp">AIDP</a>
-      <a href="grup-national.html" data-i18n="nav.grupnational">Grup&nbsp;Național</a>
-      <a href="revista.html" data-i18n="nav.revista">Revistă</a>
-      <a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a>
-      <a href="membri.html" data-i18n="nav.members">Membri</a>
-      <a href="index.html#contact" data-i18n="nav.join">Devino membru</a>
+    <nav class="onpage" aria-label="Pe această pagină">
+      <p data-i18n="ui.onpage">Pe această pagină</p>
+        <a href="#conditii"><span data-i18n="op.m.1">Condiții</span><span>art. 12</span></a>
+        <a href="#procedura"><span data-i18n="op.m.2">Procedura</span><span>art. 13</span></a>
+        <a href="#drepturi"><span data-i18n="op.m.3">Drepturi și obligații</span><span>art. 15</span></a>
+        <a href="#aderare"><span data-i18n="op.m.4">Cerere de aderare</span></a>
     </nav>
   </div>
-  <div class="footer__bar">
-    <span data-i18n="footer.rights">© 2025 Asociația de Drept Penal din Republica Moldova. Toate drepturile rezervate.</span>
-    <span class="footer__type" data-i18n="footer.type">Asociație obștească · necomercială · apolitică</span>
+</section>
+
+<section class="sec" id="conditii">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">12</span>
+      <span class="cite" data-i18n="mem.e.c">Art. 12</span>
+      <span class="cite-name" data-i18n="mem.e.n">Condiții</span>
+      <p class="gloss"><q data-i18n="gl.art12">Membrii asociației obștești participă la activitatea asociației pe principii de egalitate.</q><span data-i18n="gl.art12.src">Statut, art. 12 alin. (4)</span></p>
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="home.mem.t">Cine poate deveni membru</h2>
+      <div class="split">
+        <div class="prose"><p class="lead" data-i18n="mem.elig">Poate deveni membru orice persoană licențiată în drept care desfășoară activități științifice sau practice în domeniul dreptului penal ori se preocupă de problemele acestuia, recunoaște și se conformează Statutului. Nu poate fi membru persoana cu antecedente penale.</p><p data-i18n="mem.e.p2">Asociația nu poate fi obligată să accepte noi membri decât în condițiile prevăzute de Statut.</p></div>
+      <dl class="facts"><span class="label" data-i18n="mem.ef">Condiții</span>
+        <div><dt data-i18n="mem.ef1.k">Studii</dt><dd data-i18n="mem.ef1.v">licențiat în drept</dd></div>
+        <div><dt data-i18n="mem.ef2.k">Activitate</dt><dd data-i18n="mem.ef2.v">științifică sau practică în dreptul penal</dd></div>
+        <div><dt data-i18n="mem.ef3.k">Antecedente</dt><dd data-i18n="mem.ef3.v">fără antecedente penale</dd></div>
+        <div><dt data-i18n="mem.ef4.k">Statutul</dt><dd data-i18n="mem.ef4.v">recunoaștere și conformare</dd></div>
+      </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="procedura">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">13</span>
+      <span class="cite" data-i18n="mem.s.c">Art. 13</span>
+      <span class="cite-name" data-i18n="mem.s.n">Procedura</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="mem.s.t">Cum se dobândește calitatea de membru</h2>
+      <ol class="steps">
+        <li><h3 class="h3" data-i18n="step.1.t">Cererea scrisă</h3><p data-i18n="step.1.d">Exprimați în scris dorința de a deveni membru — prin cererea de aderare de pe site sau direct la Asociație.</p></li>
+        <li><h3 class="h3" data-i18n="step.2.t">Decizia Adunării Generale</h3><p data-i18n="step.2.d">Candidatura este examinată de Adunarea Generală. Decizia vă este comunicată ulterior (art. 13 alin. 7).</p></li>
+        <li><h3 class="h3" data-i18n="step.3.t">Cotizațiile</h3><p data-i18n="step.3.d">Achitați cotizația unică de aderare și cotizația anuală, stabilite de Adunarea Generală, până la 31 martie a anului în curs.</p></li>
+      </ol>
+      <div class="notice"><b data-i18n="mem.l.nb">Pierderea calității de membru (art. 13 alin. 6)</b><p data-i18n="mem.l.np">La cerere; prin deces; prin neplata cotizației până la 31 martie; prin excludere, în baza deciziei Adunării Generale.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="drepturi">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">15</span>
+      <span class="cite" data-i18n="mem.r.c">Art. 15</span>
+      <span class="cite-name" data-i18n="mem.r.n">Drepturi și obligații</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="mem.r.t">Drepturile membrilor</h2>
+      <ul class="list list-2">
+        <li data-i18n="mem.r.1">să participe la activitatea și la toate proiectele Asociației;</li>
+        <li data-i18n="mem.r.2">să aleagă și să fie ales în orice funcție eligibilă a Asociației;</li>
+        <li data-i18n="mem.r.3">să își exprime liber opinia asupra activității Asociației;</li>
+        <li data-i18n="mem.r.4">să fie desemnat reprezentant al Asociației în acțiuni interne sau internaționale;</li>
+        <li data-i18n="mem.r.5">să beneficieze de baza materială a Asociației — săli de documentare, bibliotecă, literatură de specialitate;</li>
+        <li data-i18n="mem.r.6">să fie susținut de Asociație în activitățile de cercetare științifică;</li>
+        <li data-i18n="mem.r.7">să publice, fără taxă, două articole științifice în revistele de profil ale Asociației;</li>
+        <li data-i18n="mem.r.8">să participe la programele de cercetare și la granturile obținute de Asociație;</li>
+        <li data-i18n="mem.r.9">să primească legitimație de membru și să fie informat despre activitatea Asociației;</li>
+        <li data-i18n="mem.r.10">să se retragă din organizație, cu sau fără motivare.</li>
+      </ul>
+      <p class="domains-label" data-i18n="mem.d.l">Obligațiile membrilor (art. 15 alin. 2)</p>
+      <ul class="list list-2">
+        <li data-i18n="mem.d.1">să recunoască și să se conformeze Statutului și deciziilor Adunării Generale și ale Președintelui;</li>
+        <li data-i18n="mem.d.2">să contribuie la realizarea scopului Asociației și să participe la activitățile ei de organizare;</li>
+        <li data-i18n="mem.d.3">să achite la timp cotizația de aderare și cotizația anuală;</li>
+        <li data-i18n="mem.d.4">să nu întreprindă acțiuni contrare scopului Asociației;</li>
+        <li data-i18n="mem.d.5">să își exercite cu devotament funcțiile în care sunt aleși;</li>
+        <li data-i18n="mem.d.6">să protejeze patrimoniul Asociației.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="aderare">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">13</span>
+      <span class="cite" data-i18n="mem.f.c">Art. 13 alin. (1)</span>
+      <span class="cite-name" data-i18n="mem.f.n">Cererea scrisă</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="mem.f.t">Cerere de aderare</h2>
+      <p class="intro" data-i18n="mem.f.p">Completați formularul. Cererea este examinată de Adunarea Generală, iar decizia vă va fi comunicată.</p>
+      <div class="form-wrap">
+        <form class="form" id="joinForm" novalidate>
+          <div class="field"><label for="f-name"><span data-i18n="form.name">Nume și prenume</span> <i>*</i></label><input id="f-name" name="name" type="text" required autocomplete="name" /></div>
+          <div class="field"><label for="f-email"><span data-i18n="form.email">Email</span> <i>*</i></label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>
+          <div class="field"><label for="f-phone" data-i18n="form.phone">Telefon</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="f-role"><span data-i18n="form.role">Activitatea profesională</span> <i>*</i></label>
+            <select id="f-role" name="role" required>
+              <option value="" data-i18n="form.role.0">Alegeți</option>
+              <option data-i18n="form.role.1">Cadru didactic universitar</option>
+              <option data-i18n="form.role.2">Cercetător științific</option>
+              <option data-i18n="form.role.3">Judecător</option>
+              <option data-i18n="form.role.4">Procuror</option>
+              <option data-i18n="form.role.5">Avocat</option>
+              <option data-i18n="form.role.6">Ofițer de urmărire penală</option>
+              <option data-i18n="form.role.7">Masterand sau doctorand (licențiat în drept)</option>
+              <option data-i18n="form.role.8">Altă activitate juridică</option>
+            </select>
+          </div>
+          <div class="field field-full"><label for="f-org" data-i18n="form.org">Instituția sau locul de muncă</label><input id="f-org" name="organisation" type="text" autocomplete="organization" /></div>
+          <div class="field field-full"><label for="f-msg" data-i18n="form.msg">Mesaj (opțional)</label><textarea id="f-msg" name="message" rows="4"></textarea></div>
+          <label class="check"><input type="checkbox" name="declaration" id="f-decl" required /><span data-i18n="form.decl">Declar că sunt licențiat(ă) în drept, nu am antecedente penale și recunosc Statutul Asociației (art. 12).</span></label>
+          <div class="form__foot">
+            <button class="btn btn-primary" type="submit" data-i18n="form.submit">Trimite cererea</button>
+            <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+        <aside class="box">
+          <span class="label" data-i18n="know.label">Bine de știut</span>
+          <h3 class="h3" data-i18n="know.t">După trimiterea cererii</h3>
+          <ul class="list">
+            <li data-i18n="know.1">Decizia de admitere aparține Adunării Generale.</li>
+            <li data-i18n="know.2">Cotizația anuală se achită până la 31 martie.</li>
+            <li data-i18n="know.3">Membrii de onoare nu plătesc cotizație.</li>
+            <li data-i18n="know.4">Datele din formular sunt folosite doar pentru examinarea cererii.</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div>
+        <img src="assets/img/adp-logo-alb.png" alt="ADP" width="102" height="40" loading="lazy" />
+        <b data-i18n="foot.name">Asociația de Drept Penal din Republica Moldova</b>
+        <p data-i18n="foot.legal">Asociație obștească · IDNO 1017620005024 · mun. Chișinău</p>
+      </div>
+      <nav class="site-footer__nav" aria-label="Subsol">
+        <h2 data-i18n="foot.nav">Pagini</h2>
+        <ul>
+          <li><a href="acte.html" data-i18n="nav.acte">Statut și acte</a></li>
+          <li><a href="conducere.html" data-i18n="nav.conducere">Conducere</a></li>
+          <li><a href="aidp.html" data-i18n="nav.aidp">AIDP</a></li>
+          <li><a href="grup-national.html" data-i18n="nav.gn">Grupul Național</a></li>
+          <li><a href="revista.html" data-i18n="nav.revista">Revista</a></li>
+          <li><a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a></li>
+          <li><a href="membri.html" data-i18n="nav.membri">Membri</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 data-i18n="foot.docs">Documente</h2>
+        <ul>
+          <li><a href="assets/docs/statutul-adp-2025.pdf" data-i18n="foot.statut">Statutul Asociației (PDF)</a></li>
+          <li><a href="membri.html#aderare" data-i18n="foot.join">Cerere de aderare</a></li>
+          <li><a href="https://www.penal.org" rel="noopener" target="_blank">AIDP — penal.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bar">
+      <span>© 2017–<span id="year">2026</span> <span data-i18n="foot.rights">Asociația de Drept Penal din Republica Moldova</span></span>
+      <span data-i18n="foot.aidp">Grupul Național al Republicii Moldova la AIDP</span>
+    </div>
   </div>
 </footer>
 

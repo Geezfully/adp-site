@@ -1,213 +1,682 @@
 /* ===================================================================
-   ADP — interactions: nav, i18n (RO/EN), reveals, counters, form
+   ADP — navigation, RO/EN switch, membership form
+   Romanian lives in the HTML; English lives in EN below, keyed by the
+   data-i18n attribute of each element.
    =================================================================== */
 (function () {
   "use strict";
 
-  /* ---------- NAV: scrolled state + mobile menu ---------- */
-  var nav = document.getElementById("nav");
-  var burger = document.getElementById("burger");
-  var links = document.querySelector(".nav__links");
+  /* Web3Forms access key for the membership form. Until it is set, the form
+     tells visitors that online submission is not available yet. */
+  var WEB3FORMS_KEY = "";
 
-  function onScroll() {
-    if (window.scrollY > 24) nav.classList.add("scrolled");
-    else nav.classList.remove("scrolled");
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  burger.addEventListener("click", function () {
-    var open = links.classList.toggle("open");
-    nav.classList.toggle("menu-open", open);
-    burger.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-  links.addEventListener("click", function (e) {
-    if (e.target.tagName === "A") {
-      links.classList.remove("open");
-      nav.classList.remove("menu-open");
-      burger.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  /* ---------- I18N: Romanian (default) + English ---------- */
   var EN = {
-    "brand.sub": "Criminal Law Association",
-    "nav.about": "About", "nav.docs": "Documents", "nav.goals": "Goals", "nav.governance": "Governance",
-    "nav.aidp": "AIDP", "nav.grupnational": "National Group", "nav.revista": "Journal",
-    "nav.publicatii": "Publications", "nav.research": "Research",
-    "nav.members": "Members", "nav.join": "Become a member",
-    "hero.kicker": "Public association · Republic of Moldova · Founded 2017",
-    "docs.eyebrow": "Official documents", "docs.title": "Founding and activity documents",
-    "docs.sub": "The documents underpinning the establishment and operation of the association — statutes, regulations and activity reports.",
-    "docs.d1t": "ADP Statute", "docs.d1s": "The founding document of the association",
-    "docs.d2t": "Internal regulations", "docs.d2s": "Rules of organisation and operation",
-    "docs.d3t": "Activity report", "docs.d3s": "Activities carried out by the association",
-    "aidp.eyebrow": "International affiliation", "aidp.title": "AIDP",
-    "aidp.sub": "The Criminal Law Association of the Republic of Moldova is a member of the Association Internationale de Droit Pénal (AIDP) — the international reference organisation in comparative criminal law, founded in 1924 and holding consultative status with the UN.",
-    "aidp.c1t": "Global network", "aidp.c1d": "Through AIDP, our association is connected to the worldwide network of criminal-law specialists from over 100 countries.",
-    "aidp.c2t": "World congresses", "aidp.c2d": "Participation in international congresses and colloquia organised by AIDP, contributing to the elaboration of criminal-law resolutions.",
-    "aidp.c3t": "International standards", "aidp.c3d": "Promoting international standards in criminal law and the defence of human rights within criminal proceedings.",
-    "gn.eyebrow": "National representation", "gn.title": "National Group",
-    "gn.sub": "Within AIDP, the Criminal Law Association of the Republic of Moldova constitutes the National Group of the Republic of Moldova — the voice of Moldovan criminal law on the international legal scene.",
-    "gn.1tag": "Mission", "gn.1t": "Representation at AIDP", "gn.1d": "The National Group represents the Republic of Moldova in AIDP structures and congresses, contributing to the elaboration of international criminal-law policies.",
-    "gn.2tag": "Collaboration", "gn.2t": "Partner national groups", "gn.2d": "Direct collaboration with national groups from AIDP member states — experience-sharing, joint projects and comparative law studies.",
-    "gn.3tag": "Activity", "gn.3t": "National reports", "gn.3d": "Elaboration of national reports for AIDP congresses and presentation of the Republic of Moldova's positions on international criminal-law issues.",
-    "revista.eyebrow": "Periodic publication", "revista.title": "Criminal Law Journal",
-    "revista.sub": "A specialist scientific publication edited by the Criminal Law Association of the Republic of Moldova. Members have free access to all editions.",
-    "revista.soon": "Journal editions will be available soon.",
-    "pub.eyebrow": "Published research", "pub.title": "Scientific Publications",
-    "pub.sub": "Articles, studies and monographs produced by association members in the field of criminal law and related sciences.",
-    "pub.soon": "Publications will be available soon.",
-    "hero.t1": "The", "hero.t2": "Criminal Law", "hero.t3": "Association of Moldova",
-    "hero.lead": "The professional community of jurists, researchers and practitioners dedicated to the science of criminal law — research, education, and the defence of the democratic rule of law.",
-    "hero.cta1": "Join the association", "hero.cta2": "Explore our mission", "hero.scroll": "Scroll",
-    "strip.1t": "Apolitical", "strip.1s": "Independent of parties and political interests",
-    "strip.2t": "Scientific", "strip.2s": "Fundamental and applied criminal-law research",
-    "strip.3t": "Rule of law", "strip.3s": "Defending legality and the democratic legal order",
-    "strip.4t": "Non-profit", "strip.4s": "Acting in the public interest, without patrimonial gain",
-    "about.eyebrow": "About the association",
-    "about.title": "A community for the science of criminal law",
-    "about.badge": "Year founded",
-    "about.p1": "The “Criminal Law Association of the Republic of Moldova” is a public, non-commercial and apolitical organisation, a private-law legal entity, established voluntarily to contribute to the development of the science and practice of criminal law.",
-    "about.p2": "We bring together academics, researchers, magistrates, lawyers, prosecutors and students around a common purpose: raising the scientific standard of criminal, procedural, executional and contravention law, criminalistics and criminology — and the correct application of legislation in the spirit of the democratic rule of law.",
-    "about.l1": "Promoting national, civic, educational and democratic values",
-    "about.l2": "Cooperation with academic associations at home and abroad",
-    "about.l3": "Equal treatment and non-discrimination of members",
-    "goals.eyebrow": "Goals of the association",
-    "goals.title": "What we do for criminal law",
-    "goals.sub": "Our statute defines the directions of activity through which we advance legal science and the profession.",
-    "g1.t": "Scientific research", "g1.d": "Fundamental and applied research in criminal law, in partnership with universities and specialist institutions.",
-    "g2.t": "Education & training", "g2.d": "Trainings, workshops, seminars and professional development programmes for jurists and students.",
-    "g3.t": "Contests & olympiads", "g3.d": "Organising public contests, olympiads and scientific events at home and abroad.",
-    "g4.t": "Legislative initiative", "g4.d": "Initiating and improving draft normative acts in the field of criminal law.",
-    "g5.t": "Journal & publications", "g5.d": "Editing the Criminal Law Review and didactic-scientific works of the field.",
-    "g6.t": "Comparative law", "g6.d": "Advancing knowledge of foreign criminal legislation, doctrine and comparative-law studies.",
-    "g7.t": "Conferences & debate", "g7.d": "Events, conferences and debates for the prevention and combating of crime.",
-    "g8.t": "International cooperation", "g8.d": "Affiliation and collaboration with national and international associations and joint projects.",
-    "research.eyebrow": "Research & publications",
-    "research.title": "A hub of legal thought",
-    "research.p": "The association ensures the dissemination of the Criminal Law Review, supports scientific and applied opinions, and develops a documentation centre in the field of criminal law — a resource for the entire legal community.",
-    "research.s1": "fields of research", "research.s2": "non-profit activity", "research.s3": "since founding",
-    "dom.1": "Criminal law", "dom.2": "Criminal procedure", "dom.3": "Executional law",
-    "dom.4": "Contravention law", "dom.5": "Criminalistics", "dom.6": "Criminology",
-    "quote.t": "The State respects, protects and ensures the freedom of association — a democratic society in which the science of criminal law serves justice and human dignity.",
-    "quote.src": "— from the Statute of the Criminal Law Association",
-    "members.eyebrow": "Members", "members.title": "Who can join",
-    "members.p": "The association brings together professionals and future jurists who share the same values. Membership is acquired voluntarily, under the Statute, and is exercised in a spirit of equality and good faith.",
-    "band.eyebrow": "The General Assembly",
-    "band.text": "Each member holds a single vote. Decisions are made together — transparently and democratically — in the service of the science of criminal law.",
-    "gallery.eyebrow": "Gallery", "gallery.title": "Tradition, research, institution",
-    "gallery.1": "The institution of justice", "gallery.2": "Doctrine & legislation", "gallery.3": "Research & study",
-    "m1.t": "Active members", "m1.d": "Law graduates concerned with the development of the science or practice of criminal law, with no criminal record.",
-    "m2.t": "Honorary members", "m2.d": "Distinguished figures of criminal-law science, recognised nationally and internationally.",
-    "m3.t": "Students & young jurists", "m3.d": "Participation in research programmes, grants, conferences and the academic life of the association.",
-    "benefits.title": "Members' rights",
-    "b1": "Participation in all activities and projects of the association",
-    "b2": "Eligibility to elect and be elected to governing bodies",
-    "b3": "Publishing articles free of charge in specialist journals",
-    "b4": "Access to resources: documentation, library, collections",
-    "b5": "Participation in research programmes and grants",
-    "b6": "Recognition for contributions to the association",
-    "gov.eyebrow": "Governance", "gov.title": "Bodies of the association",
-    "gov.sub": "The governance structure is set by the Statute and ensures transparent, democratic leadership.",
-    "gov.1tag": "Supreme body", "gov.1t": "General Assembly", "gov.1d": "Composed of all members, it approves the strategy, statute and budget and elects the President. Each member holds a single vote.",
-    "gov.2tag": "Executive body", "gov.2t": "The President", "gov.2d": "Represents the association before third parties, coordinates current activity and ensures the General Assembly’s decisions are carried out.",
-    "gov.3tag": "Distinctions", "gov.3t": "Honorary president / member", "gov.3d": "Titles granted to personalities with outstanding merits in advancing the science and practice of criminal law.",
-    "cta.eyebrow": "Join us", "cta.title": "Building the future of criminal law together",
-    "cta.sub": "Become a member of the community and contribute to research, education and the strengthening of the rule of law in the Republic of Moldova.",
-    "form.name": "Full name", "form.email": "Email", "form.msg": "Message (optional)", "form.submit": "Send request",
-    "footer.loc": "Republic of Moldova",
-    "footer.rights": "© 2025 Criminal Law Association of the Republic of Moldova. All rights reserved.",
-    "footer.type": "Public association · non-commercial · apolitical"
+  "sm.reg.k": "Registered:",
+  "sm.reg.v": "3 June 2025, Public Services Agency",
+  "sm.len.k": "Length:",
+  "sm.len.v": "13 pages, 26 articles",
+  "sm.file.k": "File:",
+  "meta.index": "Criminal Law Association of the Republic of Moldova",
+  "ui.skip": "Skip to content",
+  "reg.title": "Registration details",
+  "hero.k1": "Public association",
+  "hero.k2": "Chișinău",
+  "hero.k3": "since 2017",
+  "hero.k4": "Member of AIDP",
+  "hero.title": "Criminal Law Association of the Republic of Moldova",
+  "hero.lead": "We bring together the lawyers who teach, research and apply criminal law — for sound legal scholarship and the correct application of the law.",
+  "hero.cta1": "Apply to join",
+  "hero.cta2": "Read the Statute",
+  "reg.form.k": "Legal form",
+  "reg.form.v": "Public association — non-profit, apolitical",
+  "reg.statut.k": "Statute",
+  "reg.statut.v": "Revised version, registered with the Public Services Agency on 3 June 2025",
+  "reg.seat.k": "Seat",
+  "reg.seat.v": "Chișinău",
+  "reg.aff.k": "Affiliation",
+  "reg.aff.v": "International Association of Penal Law (AIDP)",
+  "reg.pres.k": "President",
+  "q.1.tag": "Statute · PDF",
+  "q.1.t": "Statute of the Association",
+  "q.1.d": "The 2025 version: 13 pages, 26 articles.",
+  "q.1.l": "Download",
+  "q.2.tag": "Art. 16–19",
+  "q.2.t": "Governance",
+  "q.2.d": "The General Assembly, the President and the Auditor.",
+  "q.2.l": "See the bodies",
+  "q.3.tag": "Art. 20",
+  "q.3.t": "AIDP and the National Group",
+  "q.3.d": "How the Republic of Moldova is represented in AIDP.",
+  "q.3.l": "Learn more",
+  "q.4.tag": "Art. 12–13",
+  "q.4.t": "Apply to join",
+  "q.4.d": "For law graduates working in criminal law.",
+  "q.4.l": "Apply",
+  "home.about.t": "The science of criminal law, in service of the rule of law",
+  "home.about.p1": "The Criminal Law Association of the Republic of Moldova is a private-law, non-profit and apolitical legal entity. It operates under the Constitution, Law No. 86/2020 on non-commercial organisations, the Civil Code and its own Statute.",
+  "home.about.p2": "Its members are academics, researchers, judges, prosecutors, defence lawyers and other jurists who work with criminal law. The Association organises research and professional training, proposes improvements to criminal legislation and represents the Republic of Moldova in the International Association of Penal Law.",
+  "pr.art.1": "Art. 5",
+  "pr.art.2": "Art. 6(1)",
+  "pr.art.3": "Art. 6(5)",
+  "pr.art.4": "Art. 23",
+  "pr.1.t": "Voluntary",
+  "pr.1.d": "No one can be compelled to join, or penalised for being or not being a member.",
+  "pr.2.t": "Self-governing",
+  "pr.2.d": "It freely sets its internal structure, purposes and activities, within the law.",
+  "pr.3.t": "Apolitical",
+  "pr.3.d": "It gives no material support or free services to political parties.",
+  "pr.4.t": "Transparent",
+  "pr.4.d": "It publishes an annual report, including the funds received and how they were used.",
+  "dom.label": "The field of criminal law, as defined by the Statute (Art. 8(a))",
+  "dom.1": "Criminal law",
+  "dom.2": "Criminal procedure",
+  "dom.3": "Penal enforcement law",
+  "dom.4": "Law of administrative offences",
+  "dom.5": "Forensic science",
+  "dom.6": "Special investigative activity",
+  "dom.7": "Forensic expertise",
+  "dom.8": "Criminology",
+  "home.about.c": "Art. 1–7",
+  "gl.art7": "The State respects, protects and guarantees freedom of association.",
+  "gl.art7.src": "Statute, Art. 7(1)",
+  "home.about.n": "About the association",
+  "act.l5": "Publications",
+  "act.l6": "National Group",
+  "home.goals.t": "What the association does",
+  "home.goals.p": "Article 8 of the Statute lists nineteen purposes. They are grouped below by area of activity; the full text follows.",
+  "act.1.tag": "Art. 8(i), (j), (l)",
+  "act.1.t": "Research",
+  "act.1.d": "Fundamental and applied research with law faculties, national and international projects and grants, and a criminal-law documentation centre.",
+  "act.2.tag": "Art. 8(a)",
+  "act.2.t": "Professional training",
+  "act.2.d": "Summer schools, workshops and trainings for lawyers across every branch of criminal law — from criminal procedure to criminology.",
+  "act.3.tag": "Art. 8(b), (c)",
+  "act.3.t": "Competitions and conferences",
+  "act.3.d": "Public competitions, olympiads and scientific events, plus conferences and seminars on preventing and combating crime.",
+  "act.4.tag": "Art. 8(d), (e)",
+  "act.4.t": "Criminal legislation",
+  "act.4.d": "Draft legislation and proposals to amend criminal law, submitted to Parliament and the Government.",
+  "act.5.tag": "Art. 8(m), (n), (o)",
+  "act.5.t": "Publications and opinions",
+  "act.5.d": "The Criminal Law Journal, academic and teaching works, and scholarly opinions on criminal law on request.",
+  "act.6.tag": "Art. 8(g), (h), (k), (q)",
+  "act.6.t": "International cooperation",
+  "act.6.d": "Comparative criminal law, exchanges of publications, joint projects and affiliation with AIDP through the National Group.",
+  "art8.full": "Full text of Art. 8 — letters (a) to (s)",
+  "art8.a": "organising scientific and professional-training activities — summer schools, workshops, trainings — in the field of criminal law;",
+  "art8.b": "organising public competitions, olympiads and scientific events with specialists from Moldova and abroad;",
+  "art8.c": "events, seminars and conferences aimed at preventing and combating crime;",
+  "art8.d": "initiating and improving draft legislation in the field of criminal law;",
+  "art8.e": "submitting proposals to amend criminal legislation to Parliament and the Government, and helping to draft them;",
+  "art8.f": "promoting knowledge of criminal legislation, doctrine and case law among lawyers, for the correct application of the law;",
+  "art8.g": "promoting knowledge of foreign criminal law and doctrine, and comparative criminal-law studies;",
+  "art8.h": "cooperation with national and international associations in the field, including exchanges of publications;",
+  "art8.i": "taking part in research projects and grants with national or international funding;",
+  "art8.j": "fundamental and applied research in criminal law, together with law faculties and other specialist institutions;",
+  "art8.k": "affiliation with national and international associations in the field, and encouraging members to join them individually;",
+  "art8.l": "a criminal-law documentation centre serving specialists and the wider public;",
+  "art8.m": "publishing the Association's journal and academic and teaching works in criminal law;",
+  "art8.n": "distributing the Criminal Law Journal and helping to obtain national and foreign criminal-law literature;",
+  "art8.o": "preparing scholarly and practical opinions on criminal law, on request;",
+  "art8.p": "carrying out cross-border, socio-economic and humanitarian development projects;",
+  "art8.q": "cooperation and joint projects with international and national associations;",
+  "art8.r": "providing legal advice to refugees and socially vulnerable groups;",
+  "art8.s": "consultancy on designing and implementing socio-economic, legal and humanitarian development projects.",
+  "home.goals.c": "Art. 8",
+  "gl.art6": "In its activity, the Association promotes national and civic values and interests, democracy and the rule of law.",
+  "gl.art6.src": "Statute, Art. 6(3)",
+  "home.goals.n": "Purposes of the association",
+  "home.st.t": "Statute of the Association",
+  "home.st.p": "The Statute is the document that defines the Association: its purposes, members, governing bodies and transparency rules. The contents below link to the pages of this website that explain each part.",
+  "toc.1": "General provisions",
+  "toc.2": "Principles of activity",
+  "toc.3": "Purposes of the Association",
+  "toc.4": "Rights and obligations of the Association",
+  "toc.5": "Members: rights and obligations",
+  "toc.6": "Governing bodies",
+  "toc.7": "National Group affiliated with AIDP",
+  "toc.8": "Assets and sources of funding",
+  "toc.9": "Transparency of activity",
+  "toc.10": "Adoption and amendment of the Statute",
+  "toc.11": "Branches of the Association",
+  "toc.12": "Reorganisation and dissolution",
+  "home.st.b1": "Download the Statute (PDF)",
+  "home.st.b2": "Statute &amp; documents",
+  "strip.2": "Art. 1–5 · General provisions",
+  "strip.3": "Art. 5–8 · Purposes",
+  "strip.6": "Art. 13–15 · Members",
+  "strip.9": "Art. 17–18 · Assembly and President",
+  "strip.12": "Art. 23–26 · Transparency, amendment",
+  "strip.13": "Art. 26 · Signature and seal",
+  "strip.label": "From the Statute — pages of the registered document",
+  "home.st.c": "The Statute",
+  "gl.art23": "The Association's activity is transparent.",
+  "gl.art23.src": "Statute, Art. 23(1)",
+  "home.st.n": "Revised version, 2025",
+  "home.gov.t": "Governance",
+  "home.gov.p": "The Association is governed democratically: members decide together in the General Assembly, to which the President and the Auditor are accountable.",
+  "org.1.m": "Ordinary session once a year",
+  "org.1.a": "Art. 17",
+  "org.2.m": "5-year term",
+  "org.2.a": "Art. 18",
+  "org.3.m": "5-year term",
+  "org.3.a": "Art. 19",
+  "org.1.tag": "Supreme body",
+  "org.1.t": "General Assembly",
+  "org.1.d": "Made up of all members, each with a single vote. It approves the strategy, budget and Statute, admits members and elects the President.",
+  "org.2.tag": "Executive body",
+  "org.2.t": "President",
+  "org.2.d": "<b>Viorel V. Berliba.</b> Runs day-to-day activity, carries out the General Assembly's decisions and represents the Association. Also chairs the National Group at AIDP.",
+  "org.3.tag": "Supervisory body",
+  "org.3.t": "Auditor",
+  "org.3.d": "Checks how the Association's assets, accounts and balance sheet are managed, and reports to the General Assembly on finances every year.",
+  "home.gov.more": "How the General Assembly works",
+  "home.gov.c": "Art. 16–19",
+  "gl.art17": "Every member taking part in the General Assembly has a single vote.",
+  "gl.art17.src": "Statute, Art. 17(7)",
+  "home.gov.n": "Governing bodies",
+  "home.aidp.t": "The National Group of the Republic of Moldova at AIDP",
+  "home.aidp.p": "The National Group of the Republic of Moldova works within the Association and is affiliated with the International Association of Penal Law (AIDP) — the scholarly organisation founded in Paris in 1924, which holds consultative status with the UN Economic and Social Council.",
+  "home.aidp.p2": "The National Group is made up of members of the Association who are also active members of AIDP. It is chaired by the President of the Association, assisted by three vice-presidents and a secretary.",
+  "home.aidp.l1": "About AIDP",
+  "home.aidp.l2": "About the National Group",
+  "aidp.f": "AIDP at a glance",
+  "aidp.f1.k": "Name",
+  "aidp.f2.v": "Paris, 1924",
+  "aidp.f2.k": "Founded",
+  "aidp.f3.v": "International Union of Penal Law (1889)",
+  "aidp.f3.k": "Predecessor",
+  "aidp.f4.v": "Consultative status with ECOSOC",
+  "aidp.f4.k": "UN",
+  "aidp.f5.k": "Journal",
+  "aidp.f6.k": "Website",
+  "home.aidp.c": "Art. 20",
+  "home.aidp.n": "International affiliation",
+  "status.prep": "Online archive in preparation",
+  "pub.c1.l": "Journal",
+  "pub.c2.l": "Publications",
+  "pub.c3.l": "Details",
+  "home.pub.t": "Journal, works and documentation centre",
+  "pubc.1.tag": "Art. 8(m)–(n)",
+  "pubc.1.t": "Criminal Law Journal",
+  "pubc.1.d": "The Association's scholarly journal. Members may publish two scholarly articles free of charge in the Association's journals.",
+  "pubc.2.tag": "Art. 8(m), (o)",
+  "pubc.2.t": "Publications and scholarly opinions",
+  "pubc.2.d": "Studies, monographs and teaching materials by members. On request, the Association prepares scholarly opinions on criminal law.",
+  "pubc.3.tag": "Art. 8(l)",
+  "pubc.3.t": "Documentation centre",
+  "pubc.3.d": "A criminal-law documentation centre informing specialists and the wider public; members have access to the library and specialist literature.",
+  "home.pub.c": "Art. 8(l)–(o)",
+  "home.pub.n": "Publications",
+  "home.mem.t": "Who can become a member",
+  "mem.elig": "Membership is open to any law graduate who works in criminal law — in research or in practice — or is concerned with its problems, and who accepts and abides by the Statute. Persons with a criminal record cannot become members.",
+  "home.mem.p2": "Members take part on an equal footing: every member has an equal vote, whatever office they hold, and may be elected to any office.",
+  "rb.1": "taking part in all the Association's activities and projects;",
+  "rb.2": "the right to elect and be elected to its bodies;",
+  "rb.3": "publishing two scholarly articles free of charge in its journals;",
+  "rb.4": "access to the library, reading rooms and specialist literature;",
+  "rb.5": "taking part in research programmes and grants.",
+  "rb.label": "Art. 15(1)",
+  "rb.t": "What members are entitled to",
+  "rb.btn": "Submit an application",
+  "step.1.t": "Written application",
+  "step.1.d": "State in writing that you wish to become a member — using the application form on this website or directly with the Association.",
+  "step.2.t": "General Assembly decision",
+  "step.2.d": "Your application is examined by the General Assembly, and you are informed of the decision afterwards (Art. 13(7)).",
+  "step.3.t": "Membership fees",
+  "step.3.d": "Pay the one-time joining fee and the annual fee set by the General Assembly, by 31 March of the current year.",
+  "home.mem.c": "Art. 12–15",
+  "home.mem.n": "Membership",
+  "band.t": "Join the lawyers building the science of criminal law in the Republic of Moldova",
+  "band.p": "Membership is open to any law graduate who works with criminal law — in research or in practice.",
+  "band.btn": "Submit an application",
+  "band.btn2": "Read the Statute",
+  "nav.acte": "Statute &amp; documents",
+  "nav.conducere": "Governance",
+  "nav.aidp": "AIDP",
+  "nav.gn": "National Group",
+  "nav.revista": "Journal",
+  "nav.publicatii": "Publications",
+  "nav.membri": "Membership",
+  "nav.cta": "Apply to join",
+  "foot.name": "Criminal Law Association of the Republic of Moldova",
+  "foot.legal": "Public association · IDNO 1017620005024 · Chișinău",
+  "foot.nav": "Pages",
+  "foot.docs": "Documents",
+  "foot.statut": "Statute of the Association (PDF, Romanian)",
+  "foot.join": "Membership application",
+  "foot.rights": "Criminal Law Association of the Republic of Moldova",
+  "foot.aidp": "National Group of the Republic of Moldova at AIDP",
+  "meta.acte": "Statute & documents — Criminal Law Association",
+  "ui.onpage": "On this page",
+  "op.acte.1": "The Statute",
+  "op.acte.2": "Contents of the Statute",
+  "op.acte.3": "Activity reports",
+  "op.acte.4": "General Assembly notices",
+  "crumb.home": "Home",
+  "acte.h1": "Statute and documents",
+  "acte.lead": "The documents the Association operates under, and the notices the Statute requires to be published on this website.",
+  "acte.s.t": "Statute of the Association",
+  "acte.s.p": "The Statute sets out the Association's purposes, members' rights and obligations, its governing bodies, the operation of the National Group affiliated with AIDP, its assets and its transparency rules.",
+  "acte.m.reg.k": "Registered",
+  "acte.m.reg.v": "3 June 2025, Public Services Agency",
+  "acte.m.sig.k": "Signed by",
+  "acte.m.sig.v": "Viorel V. Berliba, President of the Association",
+  "acte.m.len.k": "Length",
+  "acte.m.len.v": "13 pages, 26 articles",
+  "acte.m.lang.k": "Language",
+  "acte.m.lang.v": "Romanian",
+  "acte.m.file.k": "File",
+  "acte.s.btn": "Download the Statute (PDF)",
+  "acte.s.c": "The Statute",
+  "acte.s.n": "Revised version, 2025",
+  "acte.t.t": "Contents of the Statute",
+  "acte.t.p": "The chapters of the Statute and their articles. Where available, the link leads to the page of this website that explains that part.",
+  "acte.t.c": "Art. 1–26",
+  "acte.t.n": "Contents",
+  "acte.r.t": "Activity reports",
+  "acte.r.p": "The Association publishes its annual activity report no later than six months after the end of the year it covers. The report sets out the activities carried out, the value of the funds and materials received and used, and other relevant information. It is prepared by the President and approved by the General Assembly (Art. 18).",
+  "acte.rf": "Rules",
+  "acte.rf1.v": "6 months after year end",
+  "acte.rf1.k": "Deadline",
+  "acte.rf2.v": "copy sent within one month",
+  "acte.rf2.k": "On request",
+  "acte.rf3.v": "General Assembly",
+  "acte.rf3.k": "Approved by",
+  "acte.r.nb": "No report published yet",
+  "acte.r.np": "Approved reports will be published on this page, in chronological order.",
+  "acte.r.c": "Art. 23",
+  "acte.r.n": "Transparency",
+  "acte.a.t": "General Assembly notices",
+  "acte.a.p": "The agenda of every General Assembly, ordinary or extraordinary, is communicated to members 15 days before the meeting by publication on the Association's website. The Assembly may decide only on items included in the agenda.",
+  "acte.a.nb": "No meeting convened",
+  "acte.a.np": "When a meeting is convened, its date, venue and agenda will appear here.",
+  "acte.a.c": "Art. 17(3)",
+  "acte.a.n": "General Assembly",
+  "meta.conducere": "Governance — Criminal Law Association",
+  "op.c.1": "Governing bodies",
+  "op.c.2": "General Assembly",
+  "op.c.3": "President",
+  "op.c.4": "Auditor",
+  "op.c.5": "Honorary titles",
+  "cond.h1": "Governance",
+  "cond.lead": "The Association is governed democratically: members decide together in the General Assembly, to which the President and the Auditor are accountable.",
+  "cond.o.t": "The Association's bodies",
+  "cond.o.c": "Art. 16",
+  "gl.art17b": "Members of the Association have equal voting rights, whatever office they hold in it.",
+  "gl.art17b.src": "Statute, Art. 17(8)",
+  "cond.o.n": "Structure",
+  "cond.ag.t": "How the General Assembly works",
+  "cond.ag.1": "Meets in ordinary session once a year, and in extraordinary session at the request of one third of members or of the President.",
+  "cond.ag.2": "The agenda is published on this website 15 days before the meeting.",
+  "cond.ag.3": "It decides by a majority of those present; every member has a single vote.",
+  "cond.ag.4": "Proceedings are recorded in minutes signed by the Assembly's secretary and countersigned by its chair.",
+  "cond.ag.5": "Decisions contrary to the law or the Statute may be challenged in court within 30 days.",
+  "cond.qf": "Quorum",
+  "cond.q1.v": "half of the members plus one",
+  "cond.q1.k": "First call",
+  "cond.q2.v": "after 15 days, at least one third",
+  "cond.q2.k": "Second call",
+  "cond.q3.v": "two thirds present and voting",
+  "cond.q3.k": "Reorganisation, dissolution",
+  "cond.q4.v": "more than half of the members",
+  "cond.q4.k": "Amending the Statute",
+  "cond.ag.comp": "Main powers (Art. 17(9))",
+  "cond.agc.1": "sets the Association's strategy and general objectives;",
+  "cond.agc.2": "approves the budget and the balance sheet;",
+  "cond.agc.3": "approves and amends the Statute;",
+  "cond.agc.4": "elects and dismisses the President;",
+  "cond.agc.5": "admits and excludes members;",
+  "cond.agc.6": "awards honorary titles;",
+  "cond.agc.7": "sets the joining and annual fees;",
+  "cond.agc.8": "decides on branches and on changing the registered seat.",
+  "cond.ag.c": "Art. 17",
+  "cond.ag.n": "General Assembly",
+  "cond.p.t": "President of the Association",
+  "cond.p.p": "The President is appointed by the General Assembly for a five-year term and may be re-elected. The President leads the Association and represents it before public authorities and third parties. Under Art. 20, the President of the Association also chairs the National Group of the Republic of Moldova at AIDP.",
+  "cond.pf": "Term of office",
+  "cond.pf1.v": "General Assembly",
+  "cond.pf1.k": "Appointed by",
+  "cond.pf2.v": "5 years, renewable",
+  "cond.pf2.k": "Length",
+  "cond.pf3.v": "President of the National Group at AIDP",
+  "cond.pf3.k": "Also",
+  "cond.p.att": "Duties (Art. 18(3))",
+  "cond.pa.1": "manages the Association and carries out the General Assembly's decisions;",
+  "cond.pa.2": "keeps the register of members;",
+  "cond.pa.3": "appoints and dismisses the leadership of the National Group at AIDP;",
+  "cond.pa.4": "prepares the annual activity report and ensures it is published;",
+  "cond.pa.5": "convenes meetings of the General Assembly;",
+  "cond.pa.6": "may set up expert groups to study specific issues.",
+  "cond.p.c": "Art. 18",
+  "cond.p.n": "President",
+  "cond.z.t": "The Auditor",
+  "cond.z.p": "The management of the Association and the President's activity are audited by an auditor, appointed by the General Assembly for a five-year term. The President must make available all documents the audit requires.",
+  "cond.za.1": "checks how the Association's assets are managed;",
+  "cond.za.2": "checks the accounts and the balance sheet;",
+  "cond.za.3": "reports to the General Assembly on finances every year;",
+  "cond.za.4": "alerts the General Assembly to breaches of the law or the Statute.",
+  "cond.z.nb": "Incompatibilities",
+  "cond.z.np": "The President of the Association cannot be the auditor, nor can the President's spouse, in-laws or relatives up to the fourth degree.",
+  "cond.z.c": "Art. 19",
+  "cond.z.n": "Auditor",
+  "cond.h.t": "Honorary president and members",
+  "cond.h.p": "The General Assembly may confer honorary presidency or honorary membership on distinguished figures in the criminal sciences, recognised nationally and internationally. Former presidents of the Association become honorary presidents. Honorary members pay no fees.",
+  "cond.h.cr": "Criteria (Art. 14(6))",
+  "cond.hc.1": "academic degrees and teaching titles in criminal law;",
+  "cond.hc.2": "innovative scholarly works in criminal law;",
+  "cond.hc.3": "national and international standing;",
+  "cond.hc.4": "acceptance of the Statute and participation in the Association;",
+  "cond.hc.5": "no criminal record and irreproachable conduct.",
+  "cond.h.c": "Art. 14",
+  "cond.h.n": "Distinctions",
+  "meta.aidp": "AIDP — Criminal Law Association",
+  "op.a.1": "About AIDP",
+  "op.a.2": "What affiliation means",
+  "op.a.3": "What AIDP does",
+  "aidp.h1": "International Association of Penal Law",
+  "aidp.lead": "Through its National Group, our Association belongs to the oldest international scholarly organisation devoted to criminal law.",
+  "aidp.w.t": "An organisation founded in 1924",
+  "aidp.w.p1": "The Association Internationale de Droit Pénal (AIDP) was founded in Paris in 1924, continuing the work of the International Union of Penal Law, created in 1889. It brings together specialists in criminal law, criminal procedure and the criminal sciences from around the world.",
+  "aidp.w.p2": "AIDP holds consultative status with the UN Economic and Social Council, organises international congresses of penal law and publishes the <i>Revue Internationale de Droit Pénal</i>. Its members take part through national groups in the countries where it is represented.",
+  "aidp.w.n": "About AIDP",
+  "aidp.m.t": "What affiliation means",
+  "aidpc.l": "National Group",
+  "aidpc.1.tag": "Art. 8(k)",
+  "aidpc.1.t": "Collective member",
+  "aidpc.1.d": "The Association is affiliated with AIDP as a collective member and encourages its members to join AIDP individually.",
+  "aidpc.2.tag": "Art. 20(3)",
+  "aidpc.2.t": "National Group",
+  "aidpc.2.d": "Members of the Association who are also active members of AIDP make up the National Group of the Republic of Moldova.",
+  "aidpc.3.tag": "Art. 15(1)(e)",
+  "aidpc.3.t": "Representation",
+  "aidpc.3.d": "Members may be designated to represent the Association internationally, including at AIDP meetings.",
+  "aidp.m.c": "Art. 8(k) · Art. 20",
+  "gl.art20": "The National Group is an entity without legal personality, affiliated with the International Association of Penal Law.",
+  "gl.art20.src": "Statute, Art. 20(2)",
+  "aidp.m.n": "For members",
+  "aidp.x.t": "What AIDP does",
+  "aidp.x.1": "international congresses of penal law, prepared through thematic colloquia and national reports;",
+  "aidp.x.2": "resolutions on the development of criminal law, criminal procedure and international criminal law;",
+  "aidp.x.3": "publishing the <i>Revue Internationale de Droit Pénal</i>;",
+  "aidp.x.4": "cooperation with the United Nations and other international organisations.",
+  "aidp.x.n": "Activity",
+  "meta.gn": "National Group — Criminal Law Association",
+  "op.g.1": "Legal status",
+  "op.g.2": "Leadership",
+  "op.g.3": "Activity",
+  "gn.h1": "National Group of the Republic of Moldova",
+  "gn.lead": "The body through which the Republic of Moldova is represented in the International Association of Penal Law.",
+  "gn.s.t": "What the National Group is",
+  "gn.s.1": "The National Group operates within the Criminal Law Association of the Republic of Moldova.",
+  "gn.s.2": "It has no separate legal personality and is affiliated with the International Association of Penal Law.",
+  "gn.s.3": "Its members are members of the Association who are also active members of AIDP.",
+  "gn.s.4": "Anyone who ceases to be a member of the Association automatically ceases to be a member of the National Group.",
+  "gn.f": "At a glance",
+  "gn.f1.v": "ADP Statute, Art. 20",
+  "gn.f1.k": "Basis",
+  "gn.f2.v": "none",
+  "gn.f2.k": "Legal personality",
+  "gn.f3.v": "AIDP",
+  "gn.f3.k": "Affiliation",
+  "gn.f4.v": "5 years",
+  "gn.f4.k": "Leadership term",
+  "gn.s.c": "Art. 20(1)–(4)",
+  "gn.s.n": "Legal status",
+  "gn.l.t": "Who leads the National Group",
+  "gnc.1.tag": "Ex officio",
+  "gnc.1.t": "President",
+  "gnc.1.d": "<b>Viorel V. Berliba.</b> The President of the Association is, by right, President of the National Group.",
+  "gnc.2.tag": "Appointed for 5 years",
+  "gnc.2.t": "Three vice-presidents",
+  "gnc.2.d": "They assist the President and are appointed by the President of the Association for five years.",
+  "gnc.3.tag": "Appointed for 5 years",
+  "gnc.3.t": "Secretary",
+  "gnc.3.d": "Runs the Group's business and is likewise appointed by the President of the Association.",
+  "gn.l.c": "Art. 20(5)–(6)",
+  "gn.l.n": "Leadership",
+  "gn.a.t": "What the Group does",
+  "gna.1.t": "Representation",
+  "gna.1.d": "Represents the Republic of Moldova at AIDP congresses, colloquia and meetings.",
+  "gna.2.t": "National reports",
+  "gna.2.d": "Contributes national reports on the topics debated within AIDP.",
+  "gna.3.t": "Comparative law",
+  "gna.3.d": "Develops comparative criminal-law studies and exchanges publications with national groups abroad.",
+  "gn.a.c": "Art. 8(g), (h), (k), (q)",
+  "gn.a.n": "Activity",
+  "meta.revista": "Criminal Law Journal — Criminal Law Association",
+  "op.r.1": "Journal archive",
+  "op.r.2": "For authors",
+  "op.r.3": "Distribution",
+  "rev.h1": "Criminal Law Journal",
+  "rev.lead": "The Association's scholarly journal, devoted to criminal law and the criminal sciences.",
+  "rev.e.t": "Journal archive",
+  "rev.e.p": "Publishing the Association's journal and academic works in criminal law is one of the Association's statutory purposes.",
+  "rev.e.nb": "The online archive is in preparation",
+  "rev.e.np": "Issues of the Criminal Law Journal will be published on this page, with the contents of each issue.",
+  "rev.f": "About the journal",
+  "rev.f1.v": "Criminal Law Association of the Republic of Moldova",
+  "rev.f1.k": "Publisher",
+  "rev.f2.v": "criminal law and the criminal sciences",
+  "rev.f2.k": "Scope",
+  "rev.f3.v": "two articles published free of charge",
+  "rev.f3.k": "For members",
+  "rev.e.c": "Art. 8(m)",
+  "rev.e.n": "Issues",
+  "rev.a.t": "Publishing for members",
+  "rev.a.p": "Members of the Association are entitled to publish two scholarly articles free of charge in the Association's journals. Authors of scholarly material may be paid under internal regulations approved by the President (Art. 22(2)).",
+  "rev.a.l": "How to become a member",
+  "rev.a.c": "Art. 15(1)(k)",
+  "rev.a.n": "For authors",
+  "rev.d.t": "Distribution and exchange",
+  "revd.1.tag": "Art. 8(n)",
+  "revd.1.t": "Distribution",
+  "revd.1.d": "The Association distributes the Criminal Law Journal and other specialist works in criminal law.",
+  "revd.2.tag": "Art. 8(n)",
+  "revd.2.t": "Legal literature",
+  "revd.2.d": "It helps obtain national and foreign criminal-law literature for members and the documentation centre.",
+  "revd.3.tag": "Art. 8(h)",
+  "revd.3.t": "Exchanges",
+  "revd.3.d": "It exchanges publications with national and international associations and encourages members to publish in their journals.",
+  "rev.d.c": "Art. 8(h), (n)",
+  "rev.d.n": "Distribution",
+  "meta.publicatii": "Publications — Criminal Law Association",
+  "op.p.1": "Works by members",
+  "op.p.2": "Scholarly opinions",
+  "op.p.3": "Documentation centre",
+  "pub.h1": "Scholarly publications",
+  "pub.lead": "Studies, monographs and teaching materials by members of the Association, together with the Association's scholarly opinions.",
+  "pub.l.t": "Works by members",
+  "pub.l.nb": "The list of publications is in preparation",
+  "pub.l.np": "Works will be listed here, grouped by the fields of criminal law below.",
+  "pub.l.c": "Art. 8(m)",
+  "pub.l.n": "Works",
+  "pub.o.t": "Scholarly opinions on request",
+  "pub.o.p": "On request, the Association prepares scholarly and practical opinions on criminal law. To study specific issues, discuss government programmes in the field or draw public attention to major problems, the President may set up expert groups.",
+  "pub.of": "Basis",
+  "pub.of1.v": "Art. 8(o)",
+  "pub.of1.k": "Opinions",
+  "pub.of2.v": "Art. 18(3)(p)",
+  "pub.of2.k": "Expert groups",
+  "pub.of3.v": "Art. 8(d)–(e)",
+  "pub.of3.k": "Legislative work",
+  "pub.o.c": "Art. 8(o)",
+  "pub.o.n": "Scholarly opinions",
+  "pub.d.t": "Documentation centre",
+  "pub.d.p": "The Association runs a criminal-law documentation centre that informs specialists and the wider public on criminal law, criminal procedure, penal enforcement, administrative offences, forensic science, special investigative activity, forensic expertise and criminology. Members have access to the Association's reading rooms, library and bibliographies.",
+  "pub.d.c": "Art. 8(l)",
+  "pub.d.n": "Documentation",
+  "meta.membri": "Membership — Criminal Law Association",
+  "op.m.1": "Requirements",
+  "op.m.2": "Procedure",
+  "op.m.3": "Rights and obligations",
+  "op.m.4": "Application form",
+  "mem.h1": "Membership",
+  "mem.lead": "The Association is open to lawyers who work with criminal law — at university, in the courts, in prosecution or at the bar.",
+  "mem.e.p2": "The Association cannot be required to accept new members other than under the conditions set by the Statute.",
+  "mem.ef": "Requirements",
+  "mem.ef1.v": "law degree",
+  "mem.ef1.k": "Education",
+  "mem.ef2.v": "research or practice in criminal law",
+  "mem.ef2.k": "Work",
+  "mem.ef3.v": "no criminal record",
+  "mem.ef3.k": "Record",
+  "mem.ef4.v": "accepted and observed",
+  "mem.ef4.k": "Statute",
+  "mem.e.c": "Art. 12",
+  "gl.art12": "Members take part in the association's activity on the basis of equality.",
+  "gl.art12.src": "Statute, Art. 12(4)",
+  "mem.e.n": "Requirements",
+  "mem.s.t": "How membership is obtained",
+  "mem.l.nb": "Loss of membership (Art. 13(6))",
+  "mem.l.np": "On request; on death; for non-payment of the fee by 31 March; or by exclusion, on a decision of the General Assembly.",
+  "mem.s.c": "Art. 13",
+  "mem.s.n": "Procedure",
+  "mem.r.t": "Members' rights",
+  "mem.r.1": "to take part in the Association's activity and all its projects;",
+  "mem.r.2": "to elect and be elected to any elected office in the Association;",
+  "mem.r.3": "to express their views freely on the Association's activity;",
+  "mem.r.4": "to be designated as the Association's representative in national or international activities;",
+  "mem.r.5": "to use the Association's resources — reading rooms, library and specialist literature;",
+  "mem.r.6": "to be supported by the Association in scholarly research;",
+  "mem.r.7": "to publish two scholarly articles free of charge in the Association's journals;",
+  "mem.r.8": "to take part in research programmes and grants obtained by the Association;",
+  "mem.r.9": "to receive a membership card and be kept informed of the Association's activity;",
+  "mem.r.10": "to leave the organisation, with or without giving reasons.",
+  "mem.d.l": "Members' obligations (Art. 15(2))",
+  "mem.d.1": "to accept and comply with the Statute and the decisions of the General Assembly and the President;",
+  "mem.d.2": "to contribute to the Association's purpose and take part in organising its activities;",
+  "mem.d.3": "to pay the joining and annual fees on time;",
+  "mem.d.4": "not to act against the Association's purpose;",
+  "mem.d.5": "to carry out any office they are elected to with dedication;",
+  "mem.d.6": "to protect the Association's assets.",
+  "mem.r.c": "Art. 15",
+  "mem.r.n": "Rights and obligations",
+  "form.role.1": "University lecturer",
+  "form.role.2": "Researcher",
+  "form.role.3": "Judge",
+  "form.role.4": "Prosecutor",
+  "form.role.5": "Defence lawyer",
+  "form.role.6": "Criminal investigation officer",
+  "form.role.7": "Master's or doctoral student (law graduate)",
+  "form.role.8": "Other legal work",
+  "form.name": "Full name",
+  "form.email": "Email",
+  "form.phone": "Phone",
+  "form.role": "Professional role",
+  "form.role.0": "Choose",
+  "form.org": "Institution or employer",
+  "form.msg": "Message (optional)",
+  "form.decl": "I declare that I hold a law degree, have no criminal record and accept the Association's Statute (Art. 12).",
+  "form.submit": "Send application",
+  "know.1": "The decision to admit you rests with the General Assembly.",
+  "know.2": "The annual fee is due by 31 March.",
+  "know.3": "Honorary members pay no fees.",
+  "know.4": "Your details are used only to examine your application.",
+  "mem.f.t": "Membership application",
+  "mem.f.p": "Fill in the form. Your application is examined by the General Assembly and you will be informed of the decision.",
+  "know.label": "Good to know",
+  "know.t": "After you apply",
+  "mem.f.c": "Art. 13(1)",
+  "mem.f.n": "Written application"
+};
+
+  var UI = {
+    ro: {
+      invalid: "Completați câmpurile marcate cu * și bifați declarația.",
+      email: "Introduceți o adresă de email validă.",
+      sending: "Se trimite…",
+      sent: "Cererea a fost trimisă. Vă vom contacta după examinarea ei.",
+      failed: "Cererea nu a putut fi trimisă. Încercați din nou peste câteva minute.",
+      offline: "Trimiterea online nu este încă disponibilă."
+    },
+    en: {
+      invalid: "Fill in the fields marked * and tick the declaration.",
+      email: "Enter a valid email address.",
+      sending: "Sending…",
+      sent: "Your application has been sent. We will contact you once it has been examined.",
+      failed: "The application could not be sent. Please try again in a few minutes.",
+      offline: "Online submission is not available yet."
+    }
   };
 
+  var root = document.documentElement;
+  function lang() { return root.lang === "en" ? "en" : "ro"; }
+
+  /* ---------- mobile menu ---------- */
+  var header = document.getElementById("header");
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("menu");
+  function closeMenu() {
+    header.classList.remove("menu-open");
+    burger.setAttribute("aria-expanded", "false");
+  }
+  burger.addEventListener("click", function () {
+    var open = header.classList.toggle("menu-open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  menu.addEventListener("click", function (e) { if (e.target.tagName === "A") closeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+  /* ---------- RO / EN ---------- */
   var nodes = Array.prototype.slice.call(document.querySelectorAll("[data-i18n]"));
   var RO = {};
   nodes.forEach(function (n) { RO[n.getAttribute("data-i18n")] = n.innerHTML; });
 
-  function setLang(lang) {
-    var dict = lang === "en" ? EN : RO;
+  var langBtn = document.getElementById("lang");
+  function setLang(l) {
+    var dict = l === "en" ? EN : RO;
     nodes.forEach(function (n) {
-      var k = n.getAttribute("data-i18n");
-      if (dict[k] != null) n.innerHTML = dict[k];
+      var v = dict[n.getAttribute("data-i18n")];
+      if (v != null) n.innerHTML = v;
     });
-    document.documentElement.lang = lang;
-    document.querySelectorAll(".lang__opt").forEach(function (o) {
-      o.classList.toggle("is-active", o.getAttribute("data-lang") === lang);
+    root.lang = l;
+    langBtn.querySelectorAll("[data-l]").forEach(function (s) {
+      s.classList.toggle("on", s.getAttribute("data-l") === l);
     });
-    try { localStorage.setItem("adp-lang", lang); } catch (e) {}
+    try { localStorage.setItem("adp-lang", l); } catch (e) {}
   }
+  langBtn.addEventListener("click", function () { setLang(lang() === "en" ? "ro" : "en"); });
 
-  document.getElementById("langToggle").addEventListener("click", function () {
-    var cur = document.documentElement.lang === "en" ? "en" : "ro";
-    setLang(cur === "en" ? "ro" : "en");
-  });
-  try {
-    var saved = localStorage.getItem("adp-lang");
-    if (saved === "en") setLang("en");
-  } catch (e) {}
+  var saved = null;
+  try { saved = localStorage.getItem("adp-lang"); } catch (e) {}
+  setLang(saved === "en" ? "en" : "ro");
 
-  /* ---------- REVEAL on scroll ---------- */
-  var reveals = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en, i) {
-        if (en.isIntersecting) {
-          var el = en.target;
-          var sibs = Array.prototype.indexOf.call(el.parentNode.children, el);
-          el.style.transitionDelay = Math.min(sibs, 6) * 70 + "ms";
-          el.classList.add("in");
-          io.unobserve(el);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    reveals.forEach(function (r) { io.observe(r); });
-  } else {
-    reveals.forEach(function (r) { r.classList.add("in"); });
-  }
+  /* ---------- footer year ---------- */
+  var y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
 
-  /* ---------- COUNTERS ---------- */
-  var counters = document.querySelectorAll("[data-count]");
-  var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  function runCount(el) {
-    var target = +el.getAttribute("data-count");
-    var suffix = el.getAttribute("data-suffix") || "";
-    if (reduce) { el.textContent = target + suffix; return; }
-    var dur = 1400, start = performance.now();
-    function tick(now) {
-      var p = Math.min((now - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(target * eased) + suffix;
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-  if ("IntersectionObserver" in window) {
-    var co = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { runCount(en.target); co.unobserve(en.target); }
-      });
-    }, { threshold: 0.6 });
-    counters.forEach(function (c) { co.observe(c); });
-  } else { counters.forEach(runCount); }
-
-  /* ---------- FORM (front-end demo) ---------- */
+  /* ---------- membership form ---------- */
   var form = document.getElementById("joinForm");
-  var note = document.getElementById("formNote");
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var en = document.documentElement.lang === "en";
-    var name = form.name.value.trim();
-    var email = form.email.value.trim();
-    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      note.style.color = "#e08a6a";
-      note.textContent = en ? "Please enter a valid name and email." : "Introduceți un nume și un email valid.";
-      return;
-    }
-    note.style.color = "";
-    note.textContent = en
-      ? "Thank you, " + name + " — we’ll be in touch shortly."
-      : "Mulțumim, " + name + " — vă vom contacta în curând.";
-    form.reset();
-  });
+  if (form) {
+    var note = document.getElementById("formNote");
+    var say = function (key, kind) {
+      note.textContent = UI[lang()][key];
+      note.className = "form__note" + (kind ? " is-" + kind : "");
+    };
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = form.elements["name"].value.trim();
+      var email = form.elements["email"].value.trim();
+      if (!name || !form.elements["role"].value || !form.elements["declaration"].checked) return say("invalid", "error");
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return say("email", "error");
+      if (!WEB3FORMS_KEY) return say("offline", "error");
+
+      var data = new FormData(form);
+      data.append("access_key", WEB3FORMS_KEY);
+      data.append("subject", "Cerere de aderare — " + name);
+      data.append("from_name", "adprm.md");
+      var btn = form.querySelector("button[type=submit]");
+      btn.disabled = true;
+      say("sending");
+      fetch("https://api.web3forms.com/submit", { method: "POST", body: data })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.success) { form.reset(); say("sent", "ok"); }
+          else say("failed", "error");
+        })
+        .catch(function () { say("failed", "error"); })
+        .then(function () { btn.disabled = false; });
+    });
+  }
 })();

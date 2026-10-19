@@ -1,143 +1,177 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="ro" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#0a0a0b" />
+<title data-i18n="meta.gn">Grupul Național — Asociația de Drept Penal</title>
+<meta name="description" content="Grupul Național al Republicii Moldova afiliat Asociației Internaționale de Drept Penal (AIDP)." />
+<meta name="theme-color" content="#11264a" />
+<meta property="og:title" content="Grupul Național — Asociația de Drept Penal" />
+<meta property="og:description" content="Grupul Național al Republicii Moldova afiliat Asociației Internaționale de Drept Penal (AIDP)." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://adprm.md/assets/img/og.png" />
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/styles.css" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0b'/%3E%3Cpath d='M16 6v20M9 26h14M16 8l-7 3 7 3 7-3-7-3z' stroke='%23c8a951' stroke-width='1.6' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
-<title>Grup Național — Asociația de Drept Penal din Republica Moldova</title>
-<meta name="description" content="Asociația de Drept Penal constituie Grupul Național al Republicii Moldova în cadrul AIDP." />
+<script>document.documentElement.className="js";</script>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
-
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <a class="brand" href="index.html" aria-label="ADP — acasă">
-      <img src="assets/img/adp-transparent.png" alt="ADP" class="brand__logo">
-    </a>
-    <nav class="nav__links" aria-label="Navigare principală">
-      <a href="acte.html" data-i18n="nav.docs">Acte</a>
-      <a href="conducere.html" data-i18n="nav.governance">Conducere</a>
+<a class="skip" href="#continut" data-i18n="ui.skip">Salt la conținut</a>
+<header class="site-header" id="header">
+  <div class="wrap site-header__bar">
+    <a class="brand" href="index.html" aria-label="Asociația de Drept Penal — pagina principală"><img src="assets/img/adp-logo-alb.png" alt="ADP" width="87" height="34" /></a>
+    <nav class="menu" id="menu" aria-label="Navigare principală">
+      <a href="acte.html" data-i18n="nav.acte">Statut și acte</a>
+      <a href="conducere.html" data-i18n="nav.conducere">Conducere</a>
       <a href="aidp.html" data-i18n="nav.aidp">AIDP</a>
-      <a href="grup-national.html" data-i18n="nav.grupnational">Grup&nbsp;Național</a>
-      <a href="revista.html" data-i18n="nav.revista">Revistă</a>
+      <a href="grup-national.html" aria-current="page" data-i18n="nav.gn">Grupul Național</a>
+      <a href="revista.html" data-i18n="nav.revista">Revista</a>
       <a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a>
-      <a href="membri.html" data-i18n="nav.members">Membri</a>
+      <a href="membri.html" data-i18n="nav.membri">Membri</a>
+      <a class="menu__cta" href="membri.html#aderare" data-i18n="nav.cta">Cerere de aderare</a>
     </nav>
-    <div class="nav__actions">
-      <button class="lang" id="langToggle" aria-label="Schimbă limba">
-        <span class="lang__opt is-active" data-lang="ro">RO</span><span class="lang__sep">/</span><span class="lang__opt" data-lang="en">EN</span>
-      </button>
-      <a class="btn btn--gold" href="#contact" data-i18n="nav.join">Devino membru</a>
-      <button class="burger" id="burger" aria-label="Meniu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="tools">
+      <button class="lang" id="lang" type="button" aria-label="Schimbă limba / Switch language"><span data-l="ro">RO</span> / <span data-l="en">EN</span></button>
+      <a class="btn btn-ghost" href="membri.html#aderare" data-i18n="nav.cta">Cerere de aderare</a>
+      <button class="burger" id="burger" type="button" aria-label="Meniu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
-
-<main id="top">
-
-<div class="page-top"></div>
-
-<section class="section" id="grup-national">
-  <div class="section__head reveal">
-    <span class="eyebrow" data-i18n="gn.eyebrow">Reprezentare națională</span>
-    <h2 class="h2" data-i18n="gn.title">Grupul Național</h2>
-    <p class="section__sub" data-i18n="gn.sub">În cadrul AIDP, Asociația de Drept Penal din Republica Moldova constituie Grupul Național al Republicii Moldova — vocea dreptului penal moldovenesc pe scena juridică internațională.</p>
-  </div>
-  <div class="gov__grid">
-    <div class="gcard reveal">
-      <span class="gcard__tag" data-i18n="gn.1tag">Misiune</span>
-      <h3 data-i18n="gn.1t">Reprezentare la AIDP</h3>
-      <p data-i18n="gn.1d">Grupul Național reprezintă Republica Moldova în structurile și congresele AIDP, contribuind la elaborarea politicilor de drept penal internațional.</p>
+<main id="continut">
+<section class="page-head">
+  <img class="hero__mark" src="assets/img/adp-semn-alb.png" alt="" aria-hidden="true" width="574" height="481" />
+  <div class="wrap page-head__grid">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html" data-i18n="crumb.home">Acasă</a><span aria-hidden="true">/</span><span data-i18n="nav.gn">Grupul Național</span></nav>
+      <h1 class="display" data-i18n="gn.h1">Grupul Național al Republicii Moldova</h1>
+      <p class="page-head__lead" data-i18n="gn.lead">Entitatea prin care Republica Moldova este reprezentată în Asociația Internațională de Drept Penal.</p>
+      
     </div>
-    <div class="gcard reveal">
-      <span class="gcard__tag" data-i18n="gn.2tag">Colaborare</span>
-      <h3 data-i18n="gn.2t">Grupuri naționale partenere</h3>
-      <p data-i18n="gn.2d">Colaborare directă cu grupurile naționale din statele membre AIDP — schimb de experiență, proiecte comune și studii de drept comparat.</p>
-    </div>
-    <div class="gcard reveal">
-      <span class="gcard__tag" data-i18n="gn.3tag">Activitate</span>
-      <h3 data-i18n="gn.3t">Rapoarte naționale</h3>
-      <p data-i18n="gn.3d">Elaborarea rapoartelor naționale pentru congresele AIDP și prezentarea pozițiilor Republicii Moldova în problematica dreptului penal.</p>
-    </div>
-  </div>
-</section>
-
-<section class="domains">
-  <div class="domains__track">
-    <span data-i18n="dom.1">Drept penal</span><i>·</i>
-    <span data-i18n="dom.2">Drept procesual penal</span><i>·</i>
-    <span data-i18n="dom.3">Drept execuțional penal</span><i>·</i>
-    <span data-i18n="dom.4">Drept contravențional</span><i>·</i>
-    <span data-i18n="dom.5">Criminalistică</span><i>·</i>
-    <span data-i18n="dom.6">Criminologie</span><i>·</i>
-    <span data-i18n="dom.1">Drept penal</span><i>·</i>
-    <span data-i18n="dom.2">Drept procesual penal</span><i>·</i>
-    <span data-i18n="dom.3">Drept execuțional penal</span><i>·</i>
-    <span data-i18n="dom.4">Drept contravențional</span><i>·</i>
-    <span data-i18n="dom.5">Criminalistică</span><i>·</i>
-    <span data-i18n="dom.6">Criminologie</span><i>·</i>
-  </div>
-</section>
-
-<section class="cta section" id="contact">
-  <div class="cta__bg" style="background-image:url('assets/img/symposium.webp')"></div>
-  <div class="cta__veil"></div>
-  <div class="cta__inner reveal">
-    <span class="eyebrow" data-i18n="cta.eyebrow">Alătură-te</span>
-    <h2 class="cta__title" data-i18n="cta.title">Construim împreună viitorul dreptului penal</h2>
-    <p data-i18n="cta.sub">Devino membru al comunității și contribuie la cercetare, educație și la consolidarea statului de drept în Republica Moldova.</p>
-    <form class="cta__form" id="joinForm" novalidate>
-      <div class="field">
-        <label for="name" data-i18n="form.name">Nume și prenume</label>
-        <input id="name" name="name" type="text" required autocomplete="name" />
-      </div>
-      <div class="field">
-        <label for="email" data-i18n="form.email">Email</label>
-        <input id="email" name="email" type="email" required autocomplete="email" />
-      </div>
-      <div class="field field--full">
-        <label for="msg" data-i18n="form.msg">Mesaj (opțional)</label>
-        <textarea id="msg" name="message" rows="3"></textarea>
-      </div>
-      <button class="btn btn--gold btn--lg" type="submit" data-i18n="form.submit">Trimite cererea</button>
-      <p class="form__note" id="formNote" role="status" aria-live="polite"></p>
-    </form>
-  </div>
-</section>
-
-</main>
-
-</main>
-
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__brand">
-      <img src="assets/img/adp-transparent.png" alt="ADP" class="footer__logo">
-      <div>
-        <b>Asociația de Drept Penal</b>
-        <span data-i18n="footer.loc">Republica Moldova</span>
-      </div>
-    </div>
-    <nav class="footer__nav" aria-label="Footer">
-      <a href="acte.html" data-i18n="nav.docs">Acte</a>
-      <a href="conducere.html" data-i18n="nav.governance">Conducere</a>
-      <a href="aidp.html" data-i18n="nav.aidp">AIDP</a>
-      <a href="grup-national.html" data-i18n="nav.grupnational">Grup&nbsp;Național</a>
-      <a href="revista.html" data-i18n="nav.revista">Revistă</a>
-      <a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a>
-      <a href="membri.html" data-i18n="nav.members">Membri</a>
-      <a href="index.html#contact" data-i18n="nav.join">Devino membru</a>
+    <nav class="onpage" aria-label="Pe această pagină">
+      <p data-i18n="ui.onpage">Pe această pagină</p>
+        <a href="#statut-gn"><span data-i18n="op.g.1">Statut juridic</span><span>art. 20 (1)–(4)</span></a>
+        <a href="#conducere-gn"><span data-i18n="op.g.2">Conducere</span><span>art. 20 (5)–(6)</span></a>
+        <a href="#activitate-gn"><span data-i18n="op.g.3">Activitate</span><span>art. 8</span></a>
     </nav>
   </div>
-  <div class="footer__bar">
-    <span data-i18n="footer.rights">© 2025 Asociația de Drept Penal din Republica Moldova. Toate drepturile rezervate.</span>
-    <span class="footer__type" data-i18n="footer.type">Asociație obștească · necomercială · apolitică</span>
+</section>
+
+<section class="sec" id="statut-gn">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">20</span>
+      <span class="cite" data-i18n="gn.s.c">Art. 20 alin. (1)–(4)</span>
+      <span class="cite-name" data-i18n="gn.s.n">Statut juridic</span>
+      <p class="gloss"><q data-i18n="gl.art20">Grupul Național constituie o entitate fără personalitate juridică, afiliat Asociației Internaționale de Drept penal.</q><span data-i18n="gl.art20.src">Statut, art. 20 alin. (2)</span></p>
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="gn.s.t">Ce este Grupul Național</h2>
+      <div class="split">
+      <ul class="list">
+        <li data-i18n="gn.s.1">Grupul Național își desfășoară activitatea în cadrul Asociației de Drept Penal din Republica Moldova.</li>
+        <li data-i18n="gn.s.2">Este o entitate fără personalitate juridică, afiliată Asociației Internaționale de Drept Penal.</li>
+        <li data-i18n="gn.s.3">Membrii săi sunt membrii Asociației care sunt concomitent membri activi ai AIDP.</li>
+        <li data-i18n="gn.s.4">Încetarea calității de membru al Asociației atrage încetarea de drept a calității de membru al Grupului Național.</li>
+      </ul>
+      <dl class="facts"><span class="label" data-i18n="gn.f">Pe scurt</span>
+        <div><dt data-i18n="gn.f1.k">Temei</dt><dd data-i18n="gn.f1.v">Statutul ADP, art. 20</dd></div>
+        <div><dt data-i18n="gn.f2.k">Personalitate juridică</dt><dd data-i18n="gn.f2.v">nu</dd></div>
+        <div><dt data-i18n="gn.f3.k">Afiliere</dt><dd data-i18n="gn.f3.v">AIDP</dd></div>
+        <div><dt data-i18n="gn.f4.k">Mandatul conducerii</dt><dd data-i18n="gn.f4.v">5 ani</dd></div>
+      </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-tint" id="conducere-gn">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">20</span>
+      <span class="cite" data-i18n="gn.l.c">Art. 20 alin. (5)–(6)</span>
+      <span class="cite-name" data-i18n="gn.l.n">Conducere</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="gn.l.t">Cine conduce Grupul Național</h2>
+      <div class="cards">
+        <article class="card"><span class="card__tag" data-i18n="gnc.1.tag">De drept</span><h3 class="h3" data-i18n="gnc.1.t">Președintele</h3><p data-i18n="gnc.1.d"><b>Viorel V. Berliba.</b> Președintele Asociației este, de drept, președintele Grupului Național.</p></article>
+        <article class="card"><span class="card__tag" data-i18n="gnc.2.tag">Numiți pentru 5 ani</span><h3 class="h3" data-i18n="gnc.2.t">Trei vicepreședinți</h3><p data-i18n="gnc.2.d">Îl asistă pe Președinte și sunt numiți de Președintele Asociației pentru o perioadă de cinci ani.</p></article>
+        <article class="card"><span class="card__tag" data-i18n="gnc.3.tag">Numit pentru 5 ani</span><h3 class="h3" data-i18n="gnc.3.t">Secretarul</h3><p data-i18n="gnc.3.d">Asigură lucrările Grupului și este numit, de asemenea, de Președintele Asociației.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="activitate-gn">
+  <div class="wrap folio">
+    <div class="folio__margin"><div class="folio__margin-inner">
+      <span class="folio__num" aria-hidden="true">8</span>
+      <span class="cite" data-i18n="gn.a.c">Art. 8 lit. g, h, k, q</span>
+      <span class="cite-name" data-i18n="gn.a.n">Activitate</span>
+      
+    </div></div>
+    <div class="folio__main">
+      <h2 class="h2" data-i18n="gn.a.t">Activitatea Grupului</h2>
+      <div class="cards">
+        <article class="card"><h3 class="h3" data-i18n="gna.1.t">Reprezentare</h3><p data-i18n="gna.1.d">Reprezintă Republica Moldova la congresele, colocviile și reuniunile AIDP.</p></article>
+        <article class="card"><h3 class="h3" data-i18n="gna.2.t">Rapoarte naționale</h3><p data-i18n="gna.2.d">Contribuie cu rapoarte naționale la temele dezbătute în cadrul AIDP.</p></article>
+        <article class="card"><h3 class="h3" data-i18n="gna.3.t">Drept comparat</h3><p data-i18n="gna.3.d">Dezvoltă studiile de drept penal comparat și schimburile de publicații cu grupurile naționale din alte state.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <img class="hero__mark" src="assets/img/adp-semn-alb.png" alt="" aria-hidden="true" width="574" height="481" />
+  <div class="wrap band__grid">
+    <div>
+      <h2 class="h2" data-i18n="band.t">Alăturați-vă juriștilor care construiesc știința dreptului penal în Republica Moldova</h2>
+      <p data-i18n="band.p">Calitatea de membru este deschisă oricărei persoane licențiate în drept care lucrează cu dreptul penal — în cercetare sau în practică.</p>
+    </div>
+    <div class="btns">
+      <a class="btn btn-light" href="membri.html#aderare" data-i18n="band.btn">Depune cererea de aderare</a>
+      <a class="btn btn-ghost" href="assets/docs/statutul-adp-2025.pdf" data-i18n="band.btn2">Citește Statutul</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div>
+        <img src="assets/img/adp-logo-alb.png" alt="ADP" width="102" height="40" loading="lazy" />
+        <b data-i18n="foot.name">Asociația de Drept Penal din Republica Moldova</b>
+        <p data-i18n="foot.legal">Asociație obștească · IDNO 1017620005024 · mun. Chișinău</p>
+      </div>
+      <nav class="site-footer__nav" aria-label="Subsol">
+        <h2 data-i18n="foot.nav">Pagini</h2>
+        <ul>
+          <li><a href="acte.html" data-i18n="nav.acte">Statut și acte</a></li>
+          <li><a href="conducere.html" data-i18n="nav.conducere">Conducere</a></li>
+          <li><a href="aidp.html" data-i18n="nav.aidp">AIDP</a></li>
+          <li><a href="grup-national.html" data-i18n="nav.gn">Grupul Național</a></li>
+          <li><a href="revista.html" data-i18n="nav.revista">Revista</a></li>
+          <li><a href="publicatii.html" data-i18n="nav.publicatii">Publicații</a></li>
+          <li><a href="membri.html" data-i18n="nav.membri">Membri</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 data-i18n="foot.docs">Documente</h2>
+        <ul>
+          <li><a href="assets/docs/statutul-adp-2025.pdf" data-i18n="foot.statut">Statutul Asociației (PDF)</a></li>
+          <li><a href="membri.html#aderare" data-i18n="foot.join">Cerere de aderare</a></li>
+          <li><a href="https://www.penal.org" rel="noopener" target="_blank">AIDP — penal.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bar">
+      <span>© 2017–<span id="year">2026</span> <span data-i18n="foot.rights">Asociația de Drept Penal din Republica Moldova</span></span>
+      <span data-i18n="foot.aidp">Grupul Național al Republicii Moldova la AIDP</span>
+    </div>
   </div>
 </footer>
 

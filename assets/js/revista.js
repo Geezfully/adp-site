@@ -17,20 +17,22 @@
     ro: {
       cover: "Coperta", backCover: "Coperta a IV-a", pages: "Paginile", page: "Pagina", of: "din",
       contents: "Cuprins", reading: "Mod lectură", flip: "Pagini", full: "Ecran complet",
-      back: "Revista", hint: "Trage de colțul paginii, apasă pe pagină sau folosește săgețile ← →",
-      hintTouch: "Glisează sau atinge marginea paginii ca să întorci foaia",
+      back: "Revista", hint: "Trage de pagină sau apasă pe ea ca s-o întorci · + / − pentru mărire",
+      hintTouch: "Trage pagina cu degetul ca s-o întorci · ciupește pentru mărire",
       resume: "Ai rămas la pagina", cont: "Continuă", preparing: "Se așază paginile…",
       notes: "Note", prev: "Pagina anterioară", next: "Pagina următoare", close: "Închide",
-      frontMatter: "Coperta și cuprinsul", backMatter: "Coperta a IV-a"
+      frontMatter: "Coperta și cuprinsul", backMatter: "Coperta a IV-a",
+      zoomIn: "Mărește", zoomOut: "Micșorează", zoomReset: "Mărime normală"
     },
     en: {
       cover: "Cover", backCover: "Back cover", pages: "Pages", page: "Page", of: "of",
       contents: "Contents", reading: "Reading mode", flip: "Pages", full: "Full screen",
-      back: "Journal", hint: "Drag a page corner, click a page or use the ← → keys",
-      hintTouch: "Swipe or tap the edge of the page to turn it",
+      back: "Journal", hint: "Drag or click a page to turn it · + / − to zoom",
+      hintTouch: "Drag the page with your finger to turn it · pinch to zoom",
       resume: "You stopped at page", cont: "Continue", preparing: "Laying out the pages…",
       notes: "Notes", prev: "Previous page", next: "Next page", close: "Close",
-      frontMatter: "Cover and contents", backMatter: "Back cover"
+      frontMatter: "Cover and contents", backMatter: "Back cover",
+      zoomIn: "Zoom in", zoomOut: "Zoom out", zoomReset: "Actual size"
     }
   };
   var lang = "ro";
@@ -318,7 +320,21 @@
      The book
      --------------------------------------------------------------- */
   var stage = $("#stage"), book = null, host = null, box = null, portrait = false;
+  var scroller = $("#scroller"), wrap = $("#zoomWrap");
   var current = 0;
+
+  // zoom levels: pages are re-laid out at the larger size (sharp text);
+  // in reading mode the same controls scale the text
+  var ZB = [1, 1.5, 2, 2.5, 3], ZT = [1, 1.2, 1.4, 1.6, 1.8, 2];
+  var zb = 0, zt = 0;
+  try {
+    var zs = JSON.parse(localStorage.getItem("adp-revista-zoom") || "{}");
+    zb = Math.max(0, Math.min(ZB.length - 1, zs.b | 0));
+    zt = Math.max(0, Math.min(ZT.length - 1, zs.t | 0));
+  } catch (e) {}
+  function Z() { return ZB[zb]; }
+  // phones and tablets: we drive the page curl ourselves (see "touch" below)
+  var touchMode = matchMedia("(hover: none) and (pointer: coarse)").matches;
 
   function layout() {
     var W = stage.clientWidth, H = stage.clientHeight;
@@ -327,25 +343,27 @@
     portrait = aw / ah < 1.02;
     var pageH = portrait ? Math.min(ah, aw * 1.5) : Math.min(ah, (aw / 2) * 1.5);
     var pageW = Math.floor(pageH / 1.5);
-    return { width: portrait ? pageW : pageW * 2, pageW: pageW, portrait: portrait };
+    return { width: portrait ? pageW : pageW * 2, pageW: pageW, portrait: portrait, pad: pad, vpad: vpad };
   }
   function setScale() {
     if (!book) return;
     var r = book.getBoundsRect();
     if (r && r.pageWidth) host.style.setProperty("--s", (r.pageWidth / PW).toFixed(5));
   }
-  function buildBook(startPage) {
+  function buildBook(startPage, focus) {
     if (book) { try { book.destroy(); } catch (e) {} book = null; }
     if (box) box.remove();
-    var L = layout();
+    var L = layout(), z = Z();
+    document.body.classList.toggle("is-zoomed", z > 1);
+    wrap.style.padding = L.vpad + "px " + L.pad + "px";
     // the engine stretches its root to 100% width, so size a box around it
     box = document.createElement("div");
     box.className = "book-box";
-    box.style.width = L.width + "px";
+    box.style.width = Math.round(L.width * z) + "px";
     host = document.createElement("div");
     host.className = "book-host";
     box.appendChild(host);
-    stage.insertBefore(box, $("#navNext"));
+    wrap.appendChild(box);
     var els = pages.map(function (pg, i) {
       var d = document.createElement("div");
       d.className = "page";
@@ -360,9 +378,14 @@
       minWidth: L.portrait ? Math.ceil(L.width * 0.75) : 40, maxWidth: 4000, minHeight: 60, maxHeight: 6000,
       showCover: true, usePortrait: true, autoSize: true,
       maxShadowOpacity: 0.42, flippingTime: 820, mobileScrollSupport: false,
-      swipeDistance: 24, startPage: startPage || 0, startZIndex: 1
+      swipeDistance: 24, startPage: startPage || 0, startZIndex: 1,
+      // zoomed: dragging pans the view; touch: our own drag handler below
+      useMouseEvents: z === 1 && !touchMode
     });
-    book.on("flip", function (e) { current = e.data; onPage(); });
+    book.on("flip", function (e) {
+      current = e.data; onPage();
+      if (Z() > 1) scroller.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    });
     book.on("changeState", function (e) {
       // start sliding to the centre as soon as a cover begins to open
       if (e.data === "flipping" && (current <= 0 || current >= total() - 1)) box.style.transform = "none";
@@ -373,6 +396,13 @@
     setScale();
     current = book.getCurrentPageIndex();
     onPage();
+    if (z === 1) { scroller.scrollLeft = 0; scroller.scrollTop = 0; }
+    else if (focus) {
+      requestAnimationFrame(function () {
+        scroller.scrollLeft = focus.fx * scroller.scrollWidth - focus.px;
+        scroller.scrollTop = focus.fy * scroller.scrollHeight - focus.py;
+      });
+    }
   }
   var resizeT;
   window.addEventListener("resize", function () {
@@ -380,7 +410,7 @@
     resizeT = setTimeout(function () {
       if (!book || document.body.classList.contains("reading")) return;
       var L = layout();
-      if (L.portrait !== portrait || Math.abs(L.width - box.offsetWidth) > 2) buildBook(current);
+      if (L.portrait !== portrait || Math.abs(L.width * Z() - box.offsetWidth) > 2) buildBook(current, captureFocus());
       else setScale();
     }, 140);
   });
@@ -451,6 +481,11 @@
   document.addEventListener("keydown", function (e) {
     if (e.target.matches("input, textarea")) return;
     if (e.key === "Escape") { closeDrawer(); hidePop(); return; }
+    if (!e.ctrlKey && !e.metaKey && !e.altKey) {
+      if (e.key === "+" || e.key === "=") { e.preventDefault(); setZoom(1); return; }
+      if (e.key === "-" || e.key === "_") { e.preventDefault(); setZoom(-1); return; }
+      if (e.key === "0") { e.preventDefault(); setZoom("reset"); return; }
+    }
     if (document.body.classList.contains("reading")) return;
     if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); next(); }
     else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); prev(); }
@@ -473,7 +508,7 @@
     tap = { x: t0.clientX, y: t0.clientY, t: Date.now() };
   }, { passive: true });
   stage.addEventListener("touchend", function (e) {
-    if (!tap || !box) return;
+    if (!tap || !box || Z() > 1) return;
     var t1 = e.changedTouches[0];
     var moved = Math.abs(t1.clientX - tap.x) + Math.abs(t1.clientY - tap.y);
     var quick = Date.now() - tap.t < 350;
@@ -484,6 +519,181 @@
     var rel = (t1.clientX - r.left) / r.width;
     if (rel > 0.66) next(); else if (rel < 0.34) prev();
   }, { passive: true });
+
+  /* ---------------------------------------------------------------
+     Touch: drag the page with a finger. On a phone the page fills the
+     screen, so the engine's own drag would need the finger to travel past
+     the screen edge. We feed it an amplified position instead: about half
+     a screen of travel turns the page, and a quick flick turns it too.
+     --------------------------------------------------------------- */
+  var drag = null, pinch = null;
+  function blockRect() { var b = host && host.querySelector(".stf__block"); return b ? b.getBoundingClientRect() : null; }
+  function cancelDrag() {
+    if (drag && drag.started && book) book.userStop({ x: drag.sx, y: drag.sy });
+    drag = null;
+  }
+  stage.addEventListener("touchstart", function (e) {
+    if (!touchMode || Z() > 1 || !book || e.touches.length !== 1 || pinch) return;
+    if (e.target.closest("a,button") || !box.contains(e.target)) return;
+    var t0 = e.touches[0], br = blockRect();
+    if (!br) return;
+    drag = { x0: t0.clientX, y0: t0.clientY, t0: Date.now(), br: br, started: false };
+  }, { passive: true });
+  stage.addEventListener("touchmove", function (e) {
+    if (!drag) return;
+    if (e.touches.length !== 1) { cancelDrag(); return; }
+    var t1 = e.touches[0], dx = t1.clientX - drag.x0, dy = t1.clientY - drag.y0;
+    if (!drag.started) {
+      if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) { if (Math.abs(dy) > 16) drag = null; return; }
+      var fwd = dx < 0;
+      if ((fwd && current >= total() - 1) || (!fwd && current <= 0)) { drag = null; return; }
+      var R = book.getBoundsRect(), spine = R.left + R.width / 2;
+      var land = book.getOrientation() === "landscape";
+      drag.k = land ? 1.6 : 2.1;
+      drag.spine = spine; drag.fwd = fwd;
+      drag.sx = fwd ? spine + R.pageWidth - 2 : spine - R.pageWidth + 2;
+      drag.sy = Math.min(R.top + R.height - 2, Math.max(R.top + 2, drag.y0 - drag.br.top));
+      drag.started = true;
+      book.startUserTouch({ x: drag.sx, y: drag.sy });
+    }
+    e.preventDefault();
+    drag.last = { x: drag.sx + dx * drag.k, y: drag.sy + dy * 0.6 };
+    book.userMove(drag.last, true);
+  }, { passive: false });
+  stage.addEventListener("touchend", function (e) {
+    if (!drag) return;
+    var d = drag; drag = null;
+    if (!d.started) return;
+    var dx = e.changedTouches[0].clientX - d.x0, quick = Date.now() - d.t0 < 320;
+    var pos = d.last || { x: d.sx, y: d.sy };
+    if (quick && Math.abs(dx) > 30) {
+      // a flick: carry the fold past the spine so the turn completes
+      pos = { x: d.fwd ? d.spine - 12 : d.spine + 12, y: pos.y };
+      book.userMove(pos, true);
+    }
+    book.userStop(pos);
+  });
+  stage.addEventListener("touchcancel", cancelDrag);
+
+  /* ---------------------------------------------------------------
+     Zoom
+     --------------------------------------------------------------- */
+  function captureFocus(cx, cy) {
+    var r = scroller.getBoundingClientRect();
+    var px = cx == null ? scroller.clientWidth / 2 : cx - r.left;
+    var py = cy == null ? scroller.clientHeight / 2 : cy - r.top;
+    return {
+      px: px, py: py,
+      fx: (scroller.scrollLeft + px) / Math.max(1, scroller.scrollWidth),
+      fy: (scroller.scrollTop + py) / Math.max(1, scroller.scrollHeight)
+    };
+  }
+  function applyTextZoom() { tv.style.setProperty("--tz", ZT[zt]); }
+  function textAnchor() {
+    var blocks = src.querySelectorAll("[data-b]");
+    for (var i = 0; i < blocks.length; i++) {
+      var top = blocks[i].getBoundingClientRect().top;
+      if (blocks[i].getBoundingClientRect().bottom > 70) return { el: blocks[i], top: top };
+    }
+    return null;
+  }
+  function restoreAnchor(a) { if (a) tv.scrollTop += a.el.getBoundingClientRect().top - a.top; }
+  function saveZoom() { try { localStorage.setItem("adp-revista-zoom", JSON.stringify({ b: zb, t: zt })); } catch (e) {} }
+  function updateZoomUI() {
+    var reading = document.body.classList.contains("reading");
+    var i = reading ? zt : zb, L = reading ? ZT : ZB;
+    $("#zoomReset").textContent = Math.round(L[i] * 100) + "%";
+    $("#zoomOut").disabled = i <= 0;
+    $("#zoomIn").disabled = i >= L.length - 1;
+  }
+  var flashT;
+  function flash() {
+    var f = $("#zflash");
+    f.textContent = $("#zoomReset").textContent;
+    f.classList.add("is-on");
+    clearTimeout(flashT);
+    flashT = setTimeout(function () { f.classList.remove("is-on"); }, 700);
+  }
+  function setZoom(steps, cx, cy) {
+    if (document.body.classList.contains("reading")) {
+      var nt = steps === "reset" ? 0 : Math.max(0, Math.min(ZT.length - 1, zt + steps));
+      if (nt !== zt) { var a = textAnchor(); zt = nt; applyTextZoom(); restoreAnchor(a); }
+    } else {
+      var nb = steps === "reset" ? 0 : Math.max(0, Math.min(ZB.length - 1, zb + steps));
+      if (nb !== zb && book) { var f = captureFocus(cx, cy); zb = nb; buildBook(current, f); }
+    }
+    saveZoom(); updateZoomUI(); flash();
+  }
+  $("#zoomIn").addEventListener("click", function () { setZoom(1); });
+  $("#zoomOut").addEventListener("click", function () { setZoom(-1); });
+  $("#zoomReset").addEventListener("click", function () { setZoom("reset"); });
+
+  // trackpad pinch and Ctrl + wheel
+  var wheelAcc = 0, wheelT = 0;
+  function onWheel(e) {
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    wheelAcc -= e.deltaY;
+    var now = Date.now();
+    if (now - wheelT < 170) return;
+    if (wheelAcc > 24) { wheelT = now; wheelAcc = 0; setZoom(1, e.clientX, e.clientY); }
+    else if (wheelAcc < -24) { wheelT = now; wheelAcc = 0; setZoom(-1, e.clientX, e.clientY); }
+  }
+  stage.addEventListener("wheel", onWheel, { passive: false });
+
+  // zoomed in: drag with the mouse to move around the page
+  var pan = null;
+  scroller.addEventListener("mousedown", function (e) {
+    if (Z() === 1 || e.button !== 0 || e.target.closest("a,button")) return;
+    pan = { x: e.clientX, y: e.clientY, l: scroller.scrollLeft, t: scroller.scrollTop };
+    scroller.classList.add("is-panning");
+    e.preventDefault();
+  });
+  window.addEventListener("mousemove", function (e) {
+    if (!pan) return;
+    scroller.scrollLeft = pan.l - (e.clientX - pan.x);
+    scroller.scrollTop = pan.t - (e.clientY - pan.y);
+  });
+  window.addEventListener("mouseup", function () {
+    if (pan) { pan = null; scroller.classList.remove("is-panning"); }
+  });
+
+  // pinch with two fingers (pages and reading mode)
+  function fingers(e) { var a = e.touches[0], b = e.touches[1]; return { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 }; }
+  document.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 2) return;
+    var reading = document.body.classList.contains("reading");
+    if (!(reading ? tv : stage).contains(e.target)) return;
+    cancelDrag();
+    var f = fingers(e);
+    pinch = { d0: f.d, x: f.x, y: f.y, r: 1, reading: reading };
+    if (!reading) {
+      var wr = wrap.getBoundingClientRect();
+      wrap.style.transformOrigin = (f.x - wr.left) + "px " + (f.y - wr.top) + "px";
+    }
+    e.preventDefault();
+  }, { passive: false, capture: true });
+  document.addEventListener("touchmove", function (e) {
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    pinch.r = fingers(e).d / pinch.d0;
+    if (pinch.reading) tv.style.setProperty("--tz", Math.max(ZT[0], Math.min(ZT[ZT.length - 1], ZT[zt] * pinch.r)));
+    else wrap.style.transform = "scale(" + Math.max(0.5, Math.min(3, pinch.r)) + ")";
+  }, { passive: false, capture: true });
+  document.addEventListener("touchend", function (e) {
+    if (!pinch || e.touches.length >= 2) return;
+    var p = pinch; pinch = null;
+    if (p.reading) {
+      var want = ZT[zt] * p.r, best = 0;
+      ZT.forEach(function (v, i) { if (Math.abs(v - want) < Math.abs(ZT[best] - want)) best = i; });
+      var a = textAnchor(); zt = best; applyTextZoom(); restoreAnchor(a);
+      saveZoom(); updateZoomUI(); flash();
+    } else {
+      wrap.style.transform = ""; wrap.style.transformOrigin = "";
+      var steps = Math.round(Math.log(p.r) / Math.log(1.45));
+      if (steps) setZoom(steps, p.x, p.y);
+    }
+  }, { capture: true });
 
   // links inside pages (contents page) and footnote links
   stage.addEventListener("click", function (e) {
@@ -564,6 +774,7 @@
     }
     document.body.classList.toggle("reading", on);
     tv.classList.toggle("is-on", on);
+    if (on) applyTextZoom();
     $("#btnRead").setAttribute("aria-pressed", on ? "true" : "false");
     $("#btnRead .lbl").textContent = on ? t("flip") : t("reading");
     if (on) {
@@ -576,6 +787,7 @@
     } else {
       buildBook(target);
     }
+    updateZoomUI();
   }
   $("#btnRead").addEventListener("click", function () { setReading(!document.body.classList.contains("reading")); });
   $("#readPill").addEventListener("click", function () { setReading(true); });
@@ -629,6 +841,8 @@
     return Promise.all(f.map(function (x) { return document.fonts.load(x, "ăîșțâ"); })).then(function () { return document.fonts.ready; }).catch(function () {});
   }
   applyLang();
+  applyTextZoom();
+  updateZoomUI();
   var bar = $("#loadBar");
   bar.style.width = "35%";
   fontsReady().then(function () {

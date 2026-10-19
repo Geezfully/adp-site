@@ -466,3 +466,19 @@ ul,ol{list-style:none}
 
 /* ---------- ruled-paper texture on tinted bands ---------- */
 .sec-tint{background-color:var(--paper-2);background-image:repeating-linear-gradient(to bottom,transparent 0 35px,rgba(17,38,74,.04) 35px 36px)}
+
+/* ---------- journal issue (revista.html) ---------- */
+.issue{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start}
+.issue__cover{display:block;perspective:1200px;max-width:280px}
+.issue__cover img{border-radius:2px 6px 6px 2px;box-shadow:-1px 0 0 rgba(255,255,255,.25) inset,0 2px 4px rgba(17,38,74,.2),0 26px 50px -18px rgba(17,38,74,.55);transform:rotateY(-10deg);transform-origin:left center;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.issue__cover:hover img{transform:rotateY(-2deg) translateY(-4px)}
+.issue .h2{margin-top:8px}
+.issue__mem{margin-top:10px;font-style:italic;color:var(--muted);font-size:1.05rem}
+.issue__list{counter-reset:art;margin-top:10px;border-top:1px solid var(--rule)}
+.issue__list li{counter-increment:art;border-bottom:1px solid var(--rule)}
+.issue__list a{display:grid;grid-template-columns:1.6em 1fr;column-gap:10px;padding:12px 0;text-decoration:none;color:inherit}
+.issue__list a::before{content:counter(art);grid-row:1/3;font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--seal);padding-top:3px}
+.issue__au{font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.issue__ti{font-size:1.06rem;line-height:1.35;color:var(--navy);margin-top:2px}
+.issue__list a:hover .issue__ti{color:var(--seal);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){.issue{grid-template-columns:1fr}.issue__cover{max-width:200px}}

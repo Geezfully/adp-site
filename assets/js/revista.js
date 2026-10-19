@@ -458,6 +458,13 @@
     else if (e.key === "End") { e.preventDefault(); go(total() - 1); }
   });
 
+  // no corner peel on hover: the engine listens to mousemove on window and
+  // lifts the corner whenever the pointer is near it. Hide moves made with
+  // no button pressed, so a page only lifts on click or drag.
+  window.addEventListener("mousemove", function (e) {
+    if (e.buttons === 0 && book) e.stopImmediatePropagation();
+  }, true);
+
   // touch: a quick tap on the outer thirds of the book turns the page
   // (the engine itself only reacts to swipes and drags)
   var tap = null;
